@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CCBayNav</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<h3>Corpus Christi Bay Navigation Tools Demo</h3>
+<!-- see #map in style.css -->
+<div id="map"></div>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">
+</script>
+</body>
+</html>
