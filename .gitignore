@@ -1,0 +1,4 @@
+#	Add files to ignore when pushing to remote
+
+.\config.json
+
