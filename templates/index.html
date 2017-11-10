@@ -9,7 +9,11 @@
 <body>
 <h3>Corpus Christi Bay Navigation Tools Demo</h3>
 <!-- see #map in style.css -->
-<div id="map"></div>
+<div id="wrapper">
+    <div id="map"></div>
+    <div id="left-panel"></div>
+    <div id="bottom-panel"></div>
+</div>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">

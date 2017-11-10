@@ -1,7 +1,31 @@
+div{
+    display: block;
+}
+#wrapper{
+    width: 100%;
+    width: 100%;
+}
+
 /*
   Google map div attribute
  */
 #map {
     height: 600px;
     width: 60%;
+    float: left;
+}
+
+#left-panel {
+    height: 600px;
+    width: 40%;
+    background-color: mediumseagreen;
+    float: left;
+
+}
+
+#bottom-panel {
+    height: 400px;
+    width: 100%;
+    background-color: lightseagreen;
+    float: left;
 }
