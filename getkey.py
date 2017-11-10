@@ -11,10 +11,10 @@ import json
 """
 
 
-def getkey(api_name):
+def search_key(api_name):
     key = None
     # TODO: Change '..\config.json' to '../config.sjon' when in Linux environment
-    key_path = os.path.abspath('..\config.json')
+    key_path = os.path.abspath('.\config.json')
 
     #   Check if the file exist
     if os.path.exists(key_path):
@@ -25,7 +25,7 @@ def getkey(api_name):
         try:
             with open(key_path, 'r') as f:
                 dict_json = json.load(f)
-                print dict_json
+
                 # Search and return the key that matches the name provided
                 return dict_json.get(api_name)
         finally:
