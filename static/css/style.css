@@ -1,31 +1,121 @@
-div{
-    display: block;
-}
-#wrapper{
-    width: 100%;
-    width: 100%;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-/*
-  Google map div attribute
- */
-#map {
-    height: 600px;
+body {
+    margin: 0;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    margin: 20px;
+}
+
+header {
+    min-height: 100px;
+}
+
+h1 {
+    font-weight: normal;
+    text-align: center;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.map-weather {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 600px
+}
+
+.google-maps {
     width: 60%;
-    float: left;
 }
 
-#left-panel {
-    height: 600px;
+.weather {
     width: 40%;
-    background-color: mediumseagreen;
-    float: left;
+    background-color: lightseagreen;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.weather-item:nth-child(1) {
+    background-color: black;
+    order: 1;
+    flex: 1;
+}
+
+.weather-item:nth-child(2) {
+    background-color: red;
+    order: 2;
+    flex: 1;
+}
+
+.weather-item:nth-child(3) {
+    background-color: blueviolet;
+    order: 3;
+    flex: 1;
+}
+
+.graphs {
+    margin-top: 20px;
+    height: 1400px;
+    background-color: deepskyblue;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.graphs > * {
+    width: 50%;
+    border: 0px solid white;
+}
+
+.graph-item:nth-child(1) {
+
+    background-color: green;
+    order: 1;
+}
+
+.graph-item:nth-child(2) {
+
+    background-color: yellowgreen;
+    order: 2;
 
 }
 
-#bottom-panel {
-    height: 400px;
-    width: 100%;
-    background-color: lightseagreen;
-    float: left;
+.graph-item:nth-child(3) {
+
+    background-color: yellowgreen;
+    order: 3;
+
+}
+
+.graph-item:nth-child(4) {
+
+    background-color: green;
+    order: 4;
+
+}
+
+.graph-item:nth-child(5) {
+
+    background-color: green;
+    order: 5;
+
+}
+
+.graph-item:nth-child(6) {
+
+    background-color: yellowgreen;
+    order: 6;
+
 }

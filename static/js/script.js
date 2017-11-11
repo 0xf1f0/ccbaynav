@@ -8,7 +8,7 @@ var initial_zoom = 11;                  //  The corresponding zoom of map center
 var map;
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById("map"),{
         zoom: initial_zoom,
         center: new google.maps.LatLng(initial_lat, initial_long),
         mapTypeId: 'roadmap'

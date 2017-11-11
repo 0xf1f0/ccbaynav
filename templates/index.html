@@ -2,17 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial scale=1">
     <title>CCBayNav</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flexboxgrid.css') }}">
+
 </head>
 <body>
-<h3>Corpus Christi Bay Navigation Tools Demo</h3>
-<!-- see #map in style.css -->
-<div id="wrapper">
-    <div id="map"></div>
-    <div id="left-panel"></div>
-    <div id="bottom-panel"></div>
+<header>
+    <h1>Corpus Christi Bay Navigation Tools Demo</h1>
+</header>
+<div class="main-content">
+    <div class="map-weather">
+        <div id="map" class="google-maps"></div>
+        <div class="weather">
+            <div class="weather-item"></div>
+            <div class="weather-item"></div>
+            <div class="weather-item"></div>
+        </div>
+    </div>
+    <div class="graphs">
+        <div class="graph-item">
+            <p>Graph 1</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 2</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 3</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 4</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 5</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 6</p>
+        </div>
+    </div>
 </div>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
 <script async defer
