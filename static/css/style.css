@@ -19,10 +19,6 @@ h1 {
     text-align: center;
 }
 
-.wrapper {
-    display: flex;
-}
-
 .main-content {
     display: flex;
     flex-direction: column;
@@ -75,7 +71,7 @@ h1 {
 }
 
 .graphs > * {
-    width: 50%;
+    flex-basis: calc(100% / 2);
     border: 0px solid white;
 }
 
@@ -87,35 +83,68 @@ h1 {
 
 .graph-item:nth-child(2) {
 
-    background-color: yellowgreen;
+    background-color: orangered;
     order: 2;
 
 }
 
 .graph-item:nth-child(3) {
 
-    background-color: yellowgreen;
+    background-color: cyan;
     order: 3;
 
 }
 
 .graph-item:nth-child(4) {
 
-    background-color: green;
+    background-color: magenta;
     order: 4;
 
 }
 
 .graph-item:nth-child(5) {
 
-    background-color: green;
+    background-color: lavenderblush;
     order: 5;
 
 }
 
 .graph-item:nth-child(6) {
 
-    background-color: yellowgreen;
+    background-color: deepskyblue;
     order: 6;
+
+}
+
+/* Mobile Layout */
+@media screen and (max-device-width: 480px) {
+
+    .map-weather {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .google-maps {
+        order: 2;
+        width: auto;
+        height: 480px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .weather {
+        order: 1;
+        width: inherit;
+        height: 300px;
+    }
+
+    .graphs {
+        order: 3;
+        width: inherit;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 
 }
