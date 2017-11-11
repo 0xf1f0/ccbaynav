@@ -116,8 +116,10 @@ h1 {
 
 }
 
-/* Mobile Layout */
-@media screen and (max-device-width: 480px) {
+/* Responsive layout for mobile browsers
+   Orders the div(s) as a stack
+*/
+@media screen and (max-device-width: 600px) {
 
     .map-weather {
         display: flex;
@@ -146,5 +148,4 @@ h1 {
         flex-direction: column;
         flex-wrap: nowrap;
     }
-
 }
