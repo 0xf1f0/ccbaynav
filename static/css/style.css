@@ -63,7 +63,7 @@ h1 {
 }
 
 .graphs {
-    margin-top: 20px;
+    margin-top: 5px;
     height: 1400px;
     background-color: deepskyblue;
     display: flex;
@@ -132,7 +132,6 @@ h1 {
         width: auto;
         height: 480px;
         margin-top: 5px;
-        margin-bottom: 5px;
     }
 
     .weather {
