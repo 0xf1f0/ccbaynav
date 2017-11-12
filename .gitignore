@@ -3,5 +3,5 @@
 *.json
 ./.idea/vcs.xml
 *.pyc
-./.idea/workspace.xml
-./.idea/dictionaries/Lenovo.xml
+.idea/workspace.xml
+.idea/dictionaries/Lenovo.xml

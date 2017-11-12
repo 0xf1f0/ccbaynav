@@ -151,7 +151,7 @@ h1 {
    Orders the div(s) as a stack
 */
 
-@media screen and (max-device-width: 572px) {
+@media screen and (max-device-width: 740px) {
 
     .map-weather {
         display: flex;
