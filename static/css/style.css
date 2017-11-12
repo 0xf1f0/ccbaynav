@@ -1,3 +1,5 @@
+/* TODO: Remove background colors on parent div(s) */
+
 * {
     box-sizing: border-box;
 }
@@ -15,6 +17,7 @@ header {
 h1 {
     font-weight: normal;
     text-align: center;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
 }
 
 .main-content {
@@ -35,22 +38,23 @@ h1 {
 
 .weather {
     width: 40%;
-    background-color: lightseagreen;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
 }
 
 .weather-item:nth-child(1) {
     background-color: darkorange;
     order: 1;
     flex: 1;
+    margin-bottom: 5px;
 }
 
 .weather-item:nth-child(2) {
     background-color: powderblue;
     order: 2;
     flex: 1;
+    margin-bottom: 5px;
+
 }
 
 .weather-item:nth-child(3) {
@@ -59,17 +63,47 @@ h1 {
     flex: 1;
 }
 
+#five-days-forecast {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+}
+
+.forecast-item:nth-child(1) {
+    background-color: deepskyblue;
+    flex: 1;
+}
+
+.forecast-item:nth-child(2) {
+    background-color: salmon;
+    flex: 1;
+}
+
+.forecast-item:nth-child(3) {
+    background-color: deepskyblue;
+    flex: 1;
+}
+
+.forecast-item:nth-child(4) {
+    background-color: salmon;
+    flex: 1;
+}
+
+.forecast-item:nth-child(5) {
+    background-color: deepskyblue;
+    flex: 1;
+}
+
 .graphs {
     margin-top: 5px;
     height: calc(250px * 6);
-    background-color: deepskyblue;
     display: flex;
     flex-wrap: wrap;
 }
 
 .graphs > * {
     flex-basis: calc(100% / 2);
-    border: 0px solid white;
+    box-sizing: border-box;
 }
 
 .graph-item:nth-child(1) {

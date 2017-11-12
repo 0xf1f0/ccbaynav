@@ -18,31 +18,52 @@
     <div class="map-weather">
         <div id="map" class="google-maps"></div>
         <div class="weather">
-            <div class="weather-item"><p>Current Weather Info</p></div>
-            <div class="weather-item"><p>5-Days Weather Forecast</p></div>
+            <div class="weather-item">
+                <p>Current Weather Info</p>
+            </div>
+            <div class="weather-item" id="five-days-forecast">
+                <div class="forecast-item">
+                    <p>Day 1</p>
+                </div>
+                <div class="forecast-item">
+                    <p>Day 2</p>
+                </div>
+                <div class="forecast-item">
+                    <p>Day 3</p>
+                </div>
+                <div class="forecast-item">
+                    <p>Day 4</p>
+                </div>
+                <div class="forecast-item">
+                    <p>Day 5</p>
+                </div>
+            </div>
             <div class="weather-item"><p>Other Available Info</p></div>
         </div>
     </div>
-    <div class="graphs">
-        <div class="graph-item">
-            <p>Graph 1</p>
-        </div>
-        <div class="graph-item">
-            <p>Graph 2</p>
-        </div>
-        <div class="graph-item">
-            <p>Graph 3</p>
-        </div>
-        <div class="graph-item">
-            <p>Graph 4</p>
-        </div>
-        <div class="graph-item">
-            <p>Graph 5</p>
-        </div>
-        <div class="graph-item">
-            <p>Graph 6</p>
-        </div>
+</div>
+</div>
+</div>
+<div class="graphs">
+    <div class="graph-item">
+        <p>Graph 1</p>
     </div>
+    <div class="graph-item">
+        <p>Graph 2</p>
+    </div>
+    <div class="graph-item">
+        <p>Graph 3</p>
+    </div>
+    <div class="graph-item">
+        <p>Graph 4</p>
+    </div>
+    <div class="graph-item">
+        <p>Graph 5</p>
+    </div>
+    <div class="graph-item">
+        <p>Graph 6</p>
+    </div>
+</div>
 </div>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
 <script async defer
