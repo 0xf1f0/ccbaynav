@@ -1,6 +1,7 @@
 # TODO: SECURITY WARNING: keep the secret key used in production secret!
 # TODO: Regenerate secret key and place in config.json
 # TODO: See project checklist link above before making API_KEYS public
+# TODO: Change config.json path to Linux format
 
 import os.path
 import json
