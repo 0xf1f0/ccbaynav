@@ -9,12 +9,14 @@ import json
 """
     This function takes in an api_name and returns a corresponding api_key from the config.json file.
     Returns "None" if the api_name is not in the dictionary or config.json file does not exist
+    Example:    {
+                    "marine": "Marine1",
+                }
 """
 
 
 def search_key(api_name):
-    key = None
-    # TODO: Change '..\config.json' to '../config.sjon' when in Linux environment
+    # TODO: Change '.\config.json' to './config.sjon' when in Linux environment
     key_path = os.path.abspath('.\config.json')
 
     #   Check if the file exist

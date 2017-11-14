@@ -32,10 +32,11 @@ def marine_traffic_request():
     marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) + "/MINLAT:" +
                               str(min_lat) + "/MAXLAT:" + str(max_lat) + "/MINLON:" + str(min_lon) + "/MAXLON:" +
                               str(max_lon) + "/timespan:" + str(timespan) + "/protocol:" + protocol)
+    #print marine_traffic_api_url
 
     #   Call the API service for JSON data
     mt_data = api_data_request(api_url=marine_traffic_api_url, json_file=mt_json_file)
-    print mt_data
+    #    print mt_data
 
 
 """
@@ -59,10 +60,13 @@ def open_weather_request():
     # Using type will overshadow in-built "type"
     ow_json_file = "open_weather.json"
     city_id = 4683416
+    unit = "imperial"
+    count = 10
     api_key = search_key(api_name="weather")
-    open_weather_url = ("http://api.openweathermap.org/data/2.5/forecast/?id=" + str(city_id) + "&appid=" + api_key)
-    ow_data = api_data_request(api_url=open_weather_url, json_file=ow_json_file)
-    print ow_data
+    print api_key
+    open_weather_url = ("http://api.openweathermap.org/data/2.5/forecast/?id=" + str(city_id) +
+                        "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
+    api_data_request(api_url=open_weather_url, json_file=ow_json_file)
 
 
 open_weather_request()
