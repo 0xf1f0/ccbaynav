@@ -5,6 +5,9 @@
     <orderEntry type="jdk" jdkName="Python 2.7.14 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="C:\Users\O\Desktop\Fall 2017\Capstone\ccbaynav\requirements.txt" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">
       <list>

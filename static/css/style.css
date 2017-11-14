@@ -5,7 +5,6 @@
 }
 
 body {
-    margin: 0;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     margin: 20px;
 }
@@ -54,7 +53,6 @@ h1 {
     order: 2;
     flex: 1;
     margin-bottom: 5px;
-
 }
 
 .weather-item:nth-child(3) {
@@ -72,6 +70,7 @@ h1 {
 .forecast-item:nth-child(1) {
     background-color: deepskyblue;
     flex: 1;
+
 }
 
 .forecast-item:nth-child(2) {

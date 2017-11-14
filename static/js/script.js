@@ -13,7 +13,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: initial_zoom,
         center: latlng,
-        mapTypeId: 'roadmap',
+        mapTypeId: 'roadmap'
     });
 
     var marker = new google.maps.Marker({

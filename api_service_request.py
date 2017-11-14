@@ -1,6 +1,5 @@
-from getkey import search_key
 from api_service import api_data_request
-import time
+from getkey import search_key
 
 """
     Source: https://www.marinetraffic.com/en/ais-api-services/documentation
@@ -27,32 +26,22 @@ def marine_traffic_request():
     max_lat = 27.92295
     min_lon = -97.52313
     max_lon = -96.99029
-    timespan = 20;
+    timespan = 20
     protocol = "json"
     marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) + "/MINLAT:" +
                               str(min_lat) + "/MAXLAT:" + str(max_lat) + "/MINLON:" + str(min_lon) + "/MAXLON:" +
                               str(max_lon) + "/timespan:" + str(timespan) + "/protocol:" + protocol)
-    #print marine_traffic_api_url
+    #   print marine_traffic_api_url
 
     #   Call the API service for JSON data
     mt_data = api_data_request(api_url=marine_traffic_api_url, json_file=mt_json_file)
-    #    print mt_data
+    #   print mt_data
 
 
 """
     This function requests weather data by city ID
     Source: https://openweathermap.org/history#geo
     Example API call: http://samples.openweathermap.org/data/2.5/history/city?q=Corpus%20Christi,US&appid=b1b15e88fa797225412429c1c50c122a1
-    
-      {
-    "id": 4683416,
-    "name": "Corpus Christi",
-    "country": "US",
-    "coord": {
-      "lon": -97.396378,
-      "lat": 27.800579
-    }
-    
 """
 
 
@@ -63,10 +52,15 @@ def open_weather_request():
     unit = "imperial"
     count = 10
     api_key = search_key(api_name="weather")
-    print api_key
-    open_weather_url = ("http://api.openweathermap.org/data/2.5/forecast/?id=" + str(city_id) +
-                        "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
-    api_data_request(api_url=open_weather_url, json_file=ow_json_file)
+    if api_key is None:
+        print "API key not found"
+    else:
+        print api_key
+        open_weather_url = ("http://api.openweathermap.org/data/2.5/forecast/?id=" + str(city_id) +
+                            "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
+        data = api_data_request(api_url=open_weather_url, json_file=ow_json_file)
 
 
-open_weather_request()
+# Send the API request
+marine_traffic_request()
+#   open_weather_request()
