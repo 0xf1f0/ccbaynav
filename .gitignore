@@ -1,6 +1,5 @@
 #	Add files to ignore when pushing to remote
 
-*.json
 .idea/vcs.xml
 *.pyc
 .idea/workspace.xml
