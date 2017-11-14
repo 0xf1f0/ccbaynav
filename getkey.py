@@ -17,22 +17,23 @@ import json
 
 def search_key(api_name):
     # TODO: Change '.\config.json' to './config.sjon' when in Linux environment
-    key_path = os.path.abspath('.\config.json')
+    key_path = os.path.basename('.\config.json')
 
     #   Check if the file exist
     if os.path.exists(key_path):
         """
             Read the JSON file into a dictionary variable [dict_json]
-            Example of dict_json: "marine": "Marine1",
+            Search and return the key that matches the API name
+            Example of dict_json: "marine": "Marine1"
         """
-        try:
-            with open(key_path, 'r') as f:
-                dict_json = json.load(f)
 
-                # Search and return the key that matches the name provided
-                return dict_json.get(api_name)
-        finally:
-            #   Close the file
-            f.close()
+        try:
+            f = open(key_path, 'r')
+        except IOError as e:
+            raise type(e)(e.message)
+        else:
+            dict_json = json.load(f)
+            return dict_json.get(api_name)
     else:
+        print("File: %s" % key_path + " not found")
         return None
