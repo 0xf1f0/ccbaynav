@@ -1,16 +1,21 @@
 /* TODO: Remove background colors on parent div(s) */
+/* TODO: Display 2 graphs in a row for landscape orientation(Max-width: 374px)*/
 
 * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 body {
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    margin: 20px;
+    margin: 0.5%;
 }
 
 header {
     min-height: 100px;
+    background-color: lavender;
+    margin: -0.5% 0.5% 0.5%;
 }
 
 h1 {
@@ -22,6 +27,8 @@ h1 {
 .main-content {
     display: flex;
     flex-direction: column;
+    margin: 0 0.5%;
+
 }
 
 .map-weather {
@@ -32,11 +39,11 @@ h1 {
 }
 
 .google-maps {
-    width: 60%;
+    width: 50%;
 }
 
 .weather {
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
@@ -45,64 +52,57 @@ h1 {
     background-color: darkorange;
     order: 1;
     flex: 1;
-    margin-bottom: 5px;
+    margin-bottom: 0.5%;
 }
 
 .weather-item:nth-child(2) {
     background-color: powderblue;
     order: 2;
-    flex: 1;
-    margin-bottom: 5px;
+    flex: 3;
 }
 
-.weather-item:nth-child(3) {
-    background-color: blueviolet;
-    order: 3;
-    flex: 1;
-}
-
-#five-days-forecast {
+.five-days-forecast {
     display: flex;
     flex-direction: row;
-    height: 20px;
+    flex-wrap: nowrap;
+    align-content: stretch;
+}
+
+.five-days-forecast > * {
+    flex-basis: calc(100% / 2);
 }
 
 .forecast-item:nth-child(1) {
-    background-color: deepskyblue;
-    flex: 1;
-
+    background-color: inherit;
 }
 
 .forecast-item:nth-child(2) {
-    background-color: salmon;
-    flex: 1;
+    background-color: white;
 }
 
 .forecast-item:nth-child(3) {
-    background-color: deepskyblue;
-    flex: 1;
+    background-color: lightskyblue;
 }
 
 .forecast-item:nth-child(4) {
-    background-color: salmon;
-    flex: 1;
+    background-color: midnightblue;
 }
 
 .forecast-item:nth-child(5) {
-    background-color: deepskyblue;
-    flex: 1;
+    background-color: grey;
 }
 
 .graphs {
-    margin-top: 5px;
     height: calc(250px * 6);
     display: flex;
     flex-wrap: wrap;
+
 }
 
-.graphs > * {
-    flex-basis: calc(100% / 2);
-    box-sizing: border-box;
+.graph-item {
+    flex: 1;
+    margin: 0.5%;
+    flex-basis: calc(50% - (2 * 0.5%));
 }
 
 .graph-item:nth-child(1) {
@@ -150,7 +150,13 @@ h1 {
    Orders the div(s) as a stack
 */
 
-@media screen and (max-device-width: 740px) {
+@media screen and (max-width: 800px) {
+    .main-container {
+        flex-flow: column nowrap;
+    }
+}
+
+@media screen and (max-width: 420px) {
 
     .map-weather {
         display: flex;
@@ -168,12 +174,16 @@ h1 {
     .weather {
         order: 1;
         width: inherit;
-        height: 300px;
+        height: 400px;
     }
 
     .graphs {
         order: 3;
         flex-direction: column;
         flex-wrap: nowrap;
+    }
+
+    .graphs > * {
+        flex-basis: calc(100% / 2);
     }
 }
