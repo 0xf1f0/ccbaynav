@@ -4,7 +4,7 @@
  * https://stackoverflow.com/questions/4828207/how-to-use-a-json-file-in-javascript
  * https://stackoverflow.com/questions/19706046/how-to-read-an-external-local-json-file-in-javascript
  */
-
+//POSSIBLE OPTION 1
 $.getJSON("icon.json", function(data) {
     console.log(data);
     // data is a JavaScript object now. Handle it as such
@@ -19,6 +19,8 @@ $.getJSON("icon.json", function(data) {
     The clue here is the jQuery method $.getJSON() which is shorthand for $.ajax(). It may seem an odd approach requesting a
     local file in this way but it offers the most flexibility with minimum fuss.
 */
+
+//POSSIBLE OPTION 2
  function loadJSON(callback)
  {
 
