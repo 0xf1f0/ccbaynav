@@ -4,7 +4,7 @@
 
 var initial_lat = 27.75875;            //  The corresponding latitude of map center at initialization.
 var initial_lng = -97.245233;          //  The corresponding longitude of map center at initialization.
-var initial_zoom = 11;                  //  The corresponding zoom of map center at initialization.
+var initial_zoom = 11;                 //  The corresponding zoom of map center at initialization.
 var map;
 
 
