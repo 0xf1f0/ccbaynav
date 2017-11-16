@@ -19,17 +19,21 @@ $.getJSON("icon.json", function(data) {
     The clue here is the jQuery method $.getJSON() which is shorthand for $.ajax(). It may seem an odd approach requesting a
     local file in this way but it offers the most flexibility with minimum fuss.
 */
- function loadJSON(callback) {
+ function loadJSON(callback)
+ {
 
     var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
+    xobj.overrideMimeType("application/json");
     xobj.open('GET', 'icon.json', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-          }
-    };
+    xobj.onreadystatechange = function ()
+                            {
+                                  if (xobj.readyState == 4 && xobj.status == "200")
+                                  {
+                                    // Required use of an anonymous callback as .open will NOT return a value but simply
+                                    // returns undefined in asynchronous mode
+                                    callback(xobj.responseText);
+                                  }
+                            };
     xobj.send(null);
  }
 /*
@@ -38,8 +42,10 @@ I have gone with asynchronous but you can change the argument to false if you wa
 modern browsers support the native JSON.parse method. Remember our anonymous callback? here's how you use it.
 #Usage
 */
-function init() {
- loadJSON(function(response) {
+function init()
+{
+ loadJSON(function(response)
+ {
   // Parse JSON string into object
     var actual_JSON = JSON.parse(response);
  });
