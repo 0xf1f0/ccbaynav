@@ -39,52 +39,52 @@
                 output.innerHTML = iconImg.01n;
                 break;
             case 02d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.02d;
                 break;
             case 02n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.02n;
                 break;
             case 03d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.03d;
                 break;
             case 03n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.03n;
                 break;
             case 04d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.04d;
                 break;
             case 04n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.04n;
                 break;
             case 09d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.09d;
                 break;
             case 09n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.09n;
                 break;
             case 10d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.10d;
                 break;
             case 10n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.10n;
                 break;
             case 11d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.11d;
                 break;
             case 11n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.11n;
                 break;
             case 13d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.13d;
                 break;
             case 13n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.13n;
                 break;
             case 50d:
-                output.innerHTML = iconImg.01d;
+                output.innerHTML = iconImg.50d;
                 break;
             case 50n:
-                output.innerHTML = iconImg.01n;
+                output.innerHTML = iconImg.50n;
                 break;
         }
     }
