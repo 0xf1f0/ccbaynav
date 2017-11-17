@@ -2,10 +2,11 @@
 # Import the weather icons from the json file and display the correct icon for current weather condition
 # https://www.youtube.com/watch?v=pTT7HMqDnJw "JSON in Python" by: Socratica
 #
+# WHAT'S HAPPENING
 # - import the icon.json with the open function and store in json_file
-# - convert the file into a readable json dictionary
+# - convert the file into a readable json dictionary (jIcons)
 # - close the file opened earlier
-# - convert the json diction into a string dictionary that can be read in python
+# - convert the json diction into a string dictionary that can be read in python (pIcons)
 # - getWeatherIcon function:
 #     - take the icon_key as a parameter to search through the dictionary for the
 #       corresponding icon image
@@ -85,7 +86,7 @@ def get_weather_icon(icon_key):
             return icon_img
         else:
             print("That's not a valid icon key\n")
-            return
+            return None
     else:
         print("icon_key is empty...\n")
-        return
+        return None
