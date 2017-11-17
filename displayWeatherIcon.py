@@ -2,7 +2,50 @@
 # Import the weather icons from the json file and display the correct icon for current weather condition
 # https://www.youtube.com/watch?v=pTT7HMqDnJw "JSON in Python" by: Socratica
 #
-# WHAT'S HAPPENING
+
+import json, urllib
+
+
+# TODO: if we are going to use a URL to get the API data then use this code and not the function below
+# GET_WEATHER_IMG_KEY FUNCTION
+# ----------------------------------
+# - open the URL with the json weather data
+# - create json dictionary from the URL data received
+# - convert the json dictionary to a string dictionary so python can work with the data
+# - assign the icon key from string dictionary to the imgKey variable
+# - return imgKey
+
+
+# def get_weather_img_key():
+#     response = urllib.urlopen(PLEASE INPUT API URL HERE)
+#     jData = json.loads(response.read())
+#     pData = json.dumps(jData)
+#     imgKey = pData["list"]["weather"]["icon"]
+#     return imgKey
+
+# GET_WEATHER_IMG_KEY FUNCTION
+# ----------------------------------
+# - open the file with the json data containing the weather icon key
+# - create json dictionary from the file
+# - close the file that was just opened
+# - convert the json dictionary to a string dictionary so python can work with the data
+# - assign the icon key from the string dictionary to the imgKey variable
+# - return imgKey
+
+
+def get_weather_img_key():
+    # "open_weather.json" will be where we are getting the API data from
+    # if its using a URL some code will need to change
+    weather_file = open("open_weather.json", "r")
+    jData = json.load(weather_file)
+    weather_file.close()
+    pData = json.dumps(jData)
+    imgKey = pData["list"]["weather"]["icon"]
+    return imgKey
+
+
+# get_weather_img function
+#
 # - import the icon.json with the open function and store in json_file
 # - convert the file into a readable json dictionary (jIcons)
 # - close the file opened earlier
@@ -19,16 +62,12 @@
 #                   - return icon_img
 
 
-import json
+def get_weather_img(icon_key):
+    icon_file = open("icon.json", "r")
+    jIcons = json.load(icon_file)
+    icon_file.close()
+    pIcons = json.dumps(jIcons)
 
-json_file = open("icon.json", "r")
-jIcons = json.load(json_file)
-json_file.close()
-
-pIcons = json.dumps(jIcons)
-
-
-def get_weather_icon(icon_key):
     if icon_key:
         if icon_key == '01d':
             icon_img = pIcons["01d"]
@@ -90,3 +129,7 @@ def get_weather_icon(icon_key):
     else:
         print("icon_key is empty...\n")
         return None
+
+
+def main():
+    get_weather_img(get_weather_img_key())
