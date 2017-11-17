@@ -1,4 +1,5 @@
 # TODO: Change icon.json path to Linux format
+# TODO: IF THE displayWeatherIcon.py FILE IS WORKING THEN THIS FILE SHOULD BE DISCARDED
 
 import os.path
 import json
