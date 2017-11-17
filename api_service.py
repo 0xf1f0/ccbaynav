@@ -16,5 +16,4 @@ def api_data_request(api_url, json_file):
             f.write(api_response.content)
         return json_data
     else:
-        #   print api_response.status_code
         return None

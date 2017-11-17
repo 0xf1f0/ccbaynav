@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial scale=1">
     <title>CCBayNav</title>
+
+    <!-- Imported CSS files -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flexboxgrid.css') }}">
+
 
 </head>
 <body>
@@ -19,7 +22,8 @@
         <div id="map" class="google-maps"></div>
         <div class="weather">
             <div class="weather-item">
-                <p>Current Weather Info</p>
+                <br/>Your Local Time<br/>
+                <div id="date_time"></div>
             </div>
             <div class="weather-item five-days-forecast">
                 <div class="forecast-item">
@@ -62,10 +66,14 @@
     </div>
 </div>
 </div>
+<!-- Imported Javascript files -->
+<script src="{{url_for('static', filename='js/moment.js')}}"></script>
+<script src="{{url_for('static', filename='js/moment-timezone-with-data-2012-2022.js')}}"></script>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
+
+<!-- Google Maps API call -->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">
-
 </script>
 
 </body>

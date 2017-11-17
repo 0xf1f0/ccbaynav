@@ -23,4 +23,21 @@ function initMap() {
     });
 }
 
+/*
+    Anonymous functions that displays the local time (CST)
+*/
+(function () {
+    var timeElement = document.getElementById("date_time");
+    var date = null;
+    var timezone = 'America/Chicago';
+    var format = 'dddd, MMMM Do YYYY, h:mm:ss A'
 
+    function updateClock(date_time) {
+        date = moment(new Date());
+        date_time.innerHTML = date.tz(timezone).format(format);
+    }
+
+    setInterval(function () {
+        updateClock(timeElement);
+    }, 1000);
+}());

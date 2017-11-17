@@ -35,7 +35,9 @@ def marine_traffic_request():
 
     #   Call the API service for JSON data
     mt_data = api_data_request(api_url=marine_traffic_api_url, json_file=mt_json_file)
-    #   print mt_data
+    if mt_data is not None:
+        return 200
+    return 404
 
 
 """
@@ -46,21 +48,36 @@ def marine_traffic_request():
 
 
 def open_weather_request():
-    # Using type will overshadow in-built "type"
-    ow_json_file = "open_weather.json"
+    five_days_forecast_json_file = "five_days_forecast.json"
+    current_weather_json_file = "current_weather.json"
+    base_url = "http://api.openweathermap.org/data/2.5/"
     city_id = 4683416
     unit = "imperial"
     count = 10
+
     api_key = search_key(api_name="weather")
     if api_key is None:
         print "API key not found"
     else:
-        print api_key
-        open_weather_url = ("http://api.openweathermap.org/data/2.5/forecast/?id=" + str(city_id) +
-                            "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
-        data = api_data_request(api_url=open_weather_url, json_file=ow_json_file)
+        five_days_forecast_url = (base_url + "/forecast/?id=" + str(city_id) +
+                                  "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
+        forecast_data = api_data_request(api_url=five_days_forecast_url, json_file=five_days_forecast_json_file)
+
+        current_weather_url = (base_url + "/weather/?id=" + str(city_id) + "&units=" + unit + "&appid=" + api_key)
+        weather_data = api_data_request(api_url=current_weather_url, json_file=current_weather_json_file)
+        '''
+                if forecast_data is None:
+                    print "forecast_data is None"
+                else:
+                    print forecast_data
+        '''
+
+        if weather_data is None:
+            print "weather_data is None"
+        else:
+            print weather_data
 
 
 # Send the API request
-marine_traffic_request()
-#   open_weather_request()
+# marine_traffic_request()
+open_weather_request()

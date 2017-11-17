@@ -49,16 +49,23 @@ h1 {
 }
 
 .weather-item:nth-child(1) {
-    background-color: darkorange;
     order: 1;
     flex: 1;
     margin-bottom: 0.5%;
+    background-color: orangered;
+
 }
 
 .weather-item:nth-child(2) {
     background-color: powderblue;
     order: 2;
     flex: 3;
+}
+
+#date_time {
+    background-color: white;
+    height: 40%;
+    font-size: large;
 }
 
 .five-days-forecast {
@@ -150,10 +157,34 @@ h1 {
    Orders the div(s) as a stack
 */
 
-@media screen and (max-width: 800px) {
-    .main-container {
-        flex-flow: column nowrap;
+@media screen and (max-device-width: 667px) {
+    .map-weather {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
     }
+
+    .google-maps {
+        order: 2;
+        width: auto;
+        height: 480px;
+        margin-top: 5px;
+    }
+
+    .weather {
+        order: 1;
+        width: inherit;
+        height: 400px;
+    }
+
+    .graphs {
+        order: 3;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-basis: calc(100% / 2);
+        max-height: 736px;
+    }
+
 }
 
 @media screen and (max-width: 420px) {
