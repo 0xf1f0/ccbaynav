@@ -52,8 +52,9 @@ h1 {
     order: 1;
     flex: 1;
     margin-bottom: 0.5%;
-    background-color: orangered;
-
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .weather-item:nth-child(2) {
@@ -68,11 +69,15 @@ h1 {
     font-size: large;
 }
 
+#icon {
+    max-height: 50px;
+    max-width: 50px;
+}
+
 .five-days-forecast {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-content: stretch;
 }
 
 .five-days-forecast > * {

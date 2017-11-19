@@ -1,5 +1,6 @@
 import requests
 
+
 """
     This function returns JSON object for API service request
     Check HTTP status code of api_request to be OK
@@ -13,7 +14,5 @@ def api_data_request(api_url, json_file):
     if api_response.status_code == 200:
         json_data = api_response.json()
         with open(json_file, 'w') as f:
-            f.write(api_response.content)
-        return json_data
-    else:
-        return None
+            f.write(json_data.content)
+    return api_response.status_code

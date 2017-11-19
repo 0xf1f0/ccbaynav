@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CCBayNav</title>
 
     <!-- Imported CSS files -->
@@ -22,8 +22,18 @@
         <div id="map" class="google-maps"></div>
         <div class="weather">
             <div class="weather-item">
-                <br/>Your Local Time<br/>
                 <div id="date_time"></div>
+                <div id="city"></div>
+                <div id="humidity"></div>
+                <div id="pressure"></div>
+                <div id="temp"></div>
+                <div id="temp_max"></div>
+                <div id="temp_min"></div>
+                <!--
+                <div id="main"></div>
+                -->
+                <div id="description"></div>
+                <img id="icon">
             </div>
             <div class="weather-item five-days-forecast">
                 <div class="forecast-item">
@@ -67,6 +77,7 @@
 </div>
 </div>
 <!-- Imported Javascript files -->
+<script src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment-timezone-with-data-2012-2022.js')}}"></script>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>

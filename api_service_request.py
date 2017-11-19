@@ -1,3 +1,5 @@
+from flask import url_for
+
 from api_service import api_data_request
 from getkey import search_key
 
@@ -20,7 +22,7 @@ http://services.marinetraffic.com/api/exportvessels/v:8/8205c862d0572op1655989d9
 
 
 def marine_traffic_request():
-    mt_json_file = 'marine_traffic.json'
+    mt_json_file = url_for('static', filename='api/marine_traffic.json')
     api_key = search_key(api_name="marine")
     min_lat = 27.6289
     max_lat = 27.92295
@@ -48,8 +50,8 @@ def marine_traffic_request():
 
 
 def open_weather_request():
-    five_days_forecast_json_file = "five_days_forecast.json"
-    current_weather_json_file = "current_weather.json"
+    five_days_forecast_json_file = 'static/api/five_days_forecast.json'
+    current_weather_json_file = 'static/api/current_weather.json'
     base_url = "http://api.openweathermap.org/data/2.5/"
     city_id = 4683416
     unit = "imperial"
@@ -61,23 +63,26 @@ def open_weather_request():
     else:
         five_days_forecast_url = (base_url + "/forecast/?id=" + str(city_id) +
                                   "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
-        forecast_data = api_data_request(api_url=five_days_forecast_url, json_file=five_days_forecast_json_file)
+        forecast_status = api_data_request(api_url=five_days_forecast_url, json_file=five_days_forecast_json_file)
 
         current_weather_url = (base_url + "/weather/?id=" + str(city_id) + "&units=" + unit + "&appid=" + api_key)
-        weather_data = api_data_request(api_url=current_weather_url, json_file=current_weather_json_file)
-        '''
-                if forecast_data is None:
-                    print "forecast_data is None"
-                else:
-                    print forecast_data
-        '''
+        weather_status = api_data_request(api_url=current_weather_url, json_file=current_weather_json_file)
 
-        if weather_data is None:
-            print "weather_data is None"
+        if forecast_status == 200:
+            try:
+                print five_days_forecast_json_file
+            except IOError as e:
+                raise type(e)(e.message)
         else:
-            print weather_data
+            print forecast_status
+
+        if weather_status == 200:
+            try:
+                print current_weather_json_file
+            except IOError as e:
+                raise type(e)(e.message)
+        else:
+            print weather_status
 
 
-# Send the API request
-# marine_traffic_request()
 open_weather_request()
