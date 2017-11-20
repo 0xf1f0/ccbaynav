@@ -85,18 +85,20 @@ function initMap() {
 // Fetch open weather JSON data from static folder/api/filename
 
 var current_weather_json = "/static/api/current_weather.json"
+var fahrenheit = " °F";
 
 $.ajax({
     url: current_weather_json,
     dataType: 'json',
     type: 'get',
-    cache: false,
+    cache: true,
     success: function (data) {
+
         console.log(data);
         document.getElementById("city").innerHTML = data["name"];
         document.getElementById("humidity").innerHTML = data["main"].humidity;
         document.getElementById("pressure").innerHTML = data["main"].pressure;
-        document.getElementById("temp").innerHTML = data["main"].temp;
+        document.getElementById("temp").innerHTML = data["main"].temp + fahrenheit;
         document.getElementById("temp_max").innerHTML = data["main"].temp_max;
         document.getElementById("temp_min").innerHTML = data["main"].temp_min;
         // document.getElementById("main").innerHTML = data.weather[0].main;
@@ -105,8 +107,8 @@ $.ajax({
         var iconName = data.weather[0].icon;
         var altUrl = "http://openweathermap.org/img/w/";
         var baseUrl = "/static/media/weathericons/";
-        var baseIcon = baseUrl + getIcon(iconName);
-        var altIcon = altUrl + getIcon(iconName);
+        var baseIcon = baseUrl + getWeatherIcon(iconName);
+        var altIcon = altUrl + getWeatherIcon(iconName);
         $("#icon").attr({
             src: baseIcon,
             alt: iconDesc,
@@ -118,64 +120,64 @@ $.ajax({
 
 //Get the icon url for a corresponding icon
 
-function getIcon(iconName) {
-    var iconfile = null;
+function getWeatherIcon(iconName) {
+    var iconFile = null;
     var ext = ".png";
     switch (iconName) {
         case "01d":
-            iconfile = "01d";
+            iconFile = "01d";
             break;
         case "01n":
-            iconfile = "01n";
+            iconFile = "01n";
             break;
         case "02d":
-            iconfile = "02d";
+            iconFile = "02d";
             break;
         case "02n":
-            iconfile = "02n";
+            iconFile = "02n";
             break;
         case "03d":
-            iconfile = "03d";
+            iconFile = "03d";
             break;
         case "03n":
-            iconfile = "03n";
+            iconFile = "03n";
             break;
         case "04d":
-            iconfile = "04d";
+            iconFile = "04d";
             break;
         case "04n":
-            iconfile = "04n";
+            iconFile = "04n";
             break;
         case "09d":
-            iconfile = "09d";
+            iconFile = "09d";
             break;
         case "09n":
-            iconfile = "09n";
+            iconFile = "09n";
             break;
         case "10d":
-            iconfile = "10d";
+            iconFile = "10d";
             break;
         case "10n":
-            iconfile = "10n";
+            iconFile = "10n";
             break;
         case "11d":
-            iconfile = "11d";
+            iconFile = "11d";
             break;
         case "11n":
-            iconfile = "11n";
+            iconFile = "11n";
             break;
         case "13d":
-            iconfile = "13d";
+            iconFile = "13d";
             break;
         case "13n":
-            iconfile = "13n";
+            iconFile = "13n";
             break;
         case "50d":
-            iconfile = "50d";
+            iconFile = "50d";
             break;
         case "50n":
-            iconfile = "50n";
+            iconFile = "50n";
             break;
     }
-    return (iconfile + ext);
+    return (iconFile + ext);
 }

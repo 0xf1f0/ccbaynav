@@ -74,6 +74,10 @@ h1 {
     max-width: 50px;
 }
 
+#temp {
+    font-size: large;
+}
+
 .five-days-forecast {
     display: flex;
     flex-direction: row;

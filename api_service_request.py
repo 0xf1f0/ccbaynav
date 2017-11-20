@@ -52,7 +52,7 @@ def marine_traffic_request():
 def open_weather_request():
     five_days_forecast_json_file = 'static/api/five_days_forecast.json'
     current_weather_json_file = 'static/api/current_weather.json'
-    base_url = "http://api.openweathermap.org/data/2.5/"
+    base_url = "http://api.openweathermap.org/data/2.5"
     city_id = 4683416
     unit = "imperial"
     count = 10
@@ -64,7 +64,6 @@ def open_weather_request():
         five_days_forecast_url = (base_url + "/forecast/?id=" + str(city_id) +
                                   "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
         forecast_status = api_data_request(api_url=five_days_forecast_url, json_file=five_days_forecast_json_file)
-
         current_weather_url = (base_url + "/weather/?id=" + str(city_id) + "&units=" + unit + "&appid=" + api_key)
         weather_status = api_data_request(api_url=current_weather_url, json_file=current_weather_json_file)
 
