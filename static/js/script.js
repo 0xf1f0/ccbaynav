@@ -65,6 +65,7 @@ function initMap() {
 /*
     Anonymous functions that displays the local time (CST)
 */
+
 (function () {
     var timeElement = document.getElementById("date_time");
     var date = null;
@@ -82,10 +83,12 @@ function initMap() {
 }());
 
 
-// Fetch open weather JSON data from static folder/api/filename
+// Fetch current weather JSON data from static folder/api/filename
 
 var current_weather_json = "/static/api/current_weather.json"
+var five_days_forecast_json = "/static/api/five_days_forecast.json"
 var fahrenheit = " °F";
+var percent = '%';
 
 $.ajax({
     url: current_weather_json,
@@ -94,13 +97,13 @@ $.ajax({
     cache: true,
     success: function (data) {
 
-        console.log(data);
+        // console.log(data);
         document.getElementById("city").innerHTML = data["name"];
-        document.getElementById("humidity").innerHTML = data["main"].humidity;
-        document.getElementById("pressure").innerHTML = data["main"].pressure;
-        document.getElementById("temp").innerHTML = data["main"].temp + fahrenheit;
-        document.getElementById("temp_max").innerHTML = data["main"].temp_max;
-        document.getElementById("temp_min").innerHTML = data["main"].temp_min;
+        document.getElementById("humidity").innerHTML = "Humidity: " + data["main"].humidity + percent;
+        // document.getElementById("pressure").innerHTML = data["main"].pressure;
+        document.getElementById("temp").innerHTML = "Temp: " + Math.round(data["main"].temp) + fahrenheit;
+        document.getElementById("temp_max").innerHTML = "Min Temp: " + Math.round(data["main"].temp_max) + fahrenheit;
+        document.getElementById("temp_min").innerHTML = "Max Temp: " + Math.round(data["main"].temp_min) + fahrenheit;
         // document.getElementById("main").innerHTML = data.weather[0].main;
         document.getElementById("description").innerHTML = data.weather[0].description;
         var iconDesc = data.weather[0].description;
@@ -117,6 +120,37 @@ $.ajax({
     }
 });
 
+
+// Fetch five days/ 3hrs weather forecast JSON data from static folder/api/filename
+$.ajax({
+    url: five_days_forecast_json,
+    dataType: 'json',
+    type: 'get',
+    cache: true,
+    success: function (data) {
+        var chunk = 8;
+        var json_obj = data["list"];
+        // console.log(json_obj);
+
+        document.getElementById("grid").innerHTML = output;
+        // for (var index in data["list"]) {
+        //     console.log(
+        //     data["list"][index].main.temp,
+        //         data["list"][index].weather[0].description,
+        //         data["list"][index].weather[0].icon,
+        //         epochToDate(data["list"][index].dt),
+        //         data["list"].length
+        //     );
+    }
+});
+
+// Converts an epoch(unix time) to readable Day, Time AM/PM
+function epochToDay(epoch_time) {
+    // var format = 'dddd, MMMM Do YYYY, h:mm:ss A';
+    var format = "ddd, h:mm A";
+    var day = moment.unix(epoch_time).format(format);
+    return day;
+}
 
 //Get the icon url for a corresponding icon
 

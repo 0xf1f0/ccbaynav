@@ -55,16 +55,22 @@ def open_weather_request():
     base_url = "http://api.openweathermap.org/data/2.5"
     city_id = 4683416
     unit = "imperial"
-    count = 10
+    count = 5
 
     api_key = search_key(api_name="weather")
     if api_key is None:
         print "API key not found"
     else:
         five_days_forecast_url = (base_url + "/forecast/?id=" + str(city_id) +
-                                  "&units=" + unit + "&cnt=" + str(count) + "&appid=" + api_key)
+                                  "&units=" + unit + "&appid=" + api_key)
+
+        # five_days_forecast_url = (base_url + "/forecast/?id=" + str(city_id) +
+        #                           "&units=" + unit + "&appid=" + api_key)
+
         forecast_status = api_data_request(api_url=five_days_forecast_url, json_file=five_days_forecast_json_file)
+
         current_weather_url = (base_url + "/weather/?id=" + str(city_id) + "&units=" + unit + "&appid=" + api_key)
+
         weather_status = api_data_request(api_url=current_weather_url, json_file=current_weather_json_file)
 
         if forecast_status == 200:

@@ -10,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flexboxgrid.css') }}">
-
-
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -21,71 +20,55 @@
     <div class="map-weather">
         <div id="map" class="google-maps"></div>
         <div class="weather">
-            <div class="weather-item">
+            <div class="weather-item current-weather">
                 <div id="date_time"></div>
                 <div id="city"></div>
-                <div id="humidity"></div>
-                <div id="pressure"></div>
                 <div id="temp"></div>
                 <div id="temp_max"></div>
                 <div id="temp_min"></div>
-                <!--
-                <div id="main"></div>
-                -->
+                <div id="humidity"></div>
                 <div id="description"></div>
                 <img id="icon">
             </div>
             <div class="weather-item five-days-forecast">
-                <div class="forecast-item">
-                    <p>Day 1</p>
-                </div>
-                <div class="forecast-item">
-                    <p>Day 2</p>
-                </div>
-                <div class="forecast-item">
-                    <p>Day 3</p>
-                </div>
-                <div class="forecast-item">
-                    <p>Day 4</p>
-                </div>
-                <div class="forecast-item">
-                    <p>Day 5</p>
-                </div>
+                <table id="grid">
+                </table>
             </div>
         </div>
     </div>
-</div>
-<div class="graphs">
-    <div class="graph-item">
-        <p>Graph 1</p>
+    <div class="graphs">
+        <div class="graph-item">
+            <p>Graph 1</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 2</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 3</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 4</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 5</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 6</p>
+        </div>
     </div>
-    <div class="graph-item">
-        <p>Graph 2</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 3</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 4</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 5</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 6</p>
-    </div>
-</div>
 </div>
 <!-- Imported Javascript files -->
 <script src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment-timezone-with-data-2012-2022.js')}}"></script>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 <!-- Google Maps API call -->
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">
-</script>
+<!--<script async defer-->
+<!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">-->
+<!--</script>-->
 
 </body>
 </html>

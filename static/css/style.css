@@ -39,34 +39,30 @@ h1 {
 }
 
 .google-maps {
-    width: 50%;
+    width: 70%;
 }
 
 .weather {
-    width: 50%;
+    width: 30%;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
 }
 
-.weather-item:nth-child(1) {
+.current-weather {
     order: 1;
-    flex: 1;
+    flex: 2;
+    background-color: lightskyblue;
     margin-bottom: 0.5%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
-.weather-item:nth-child(2) {
-    background-color: powderblue;
-    order: 2;
-    flex: 3;
-}
-
 #date_time {
     background-color: white;
-    height: 40%;
-    font-size: large;
+    height: inherit;
+    font-size: 100%;
 }
 
 #icon {
@@ -75,37 +71,17 @@ h1 {
 }
 
 #temp {
-    font-size: large;
+    font-size: 100%;
 }
 
 .five-days-forecast {
+
+    background-color: powderblue;
+    order: 2;
+    flex: 4;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.five-days-forecast > * {
-    flex-basis: calc(100% / 2);
-}
-
-.forecast-item:nth-child(1) {
-    background-color: inherit;
-}
-
-.forecast-item:nth-child(2) {
-    background-color: white;
-}
-
-.forecast-item:nth-child(3) {
-    background-color: lightskyblue;
-}
-
-.forecast-item:nth-child(4) {
-    background-color: midnightblue;
-}
-
-.forecast-item:nth-child(5) {
-    background-color: grey;
+    flex-wrap: wrap;
 }
 
 .graphs {
