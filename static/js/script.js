@@ -106,17 +106,23 @@ $.ajax({
         document.getElementById("temp_min").innerHTML = "Max Temp: " + Math.round(data["main"].temp_min) + fahrenheit;
         // document.getElementById("main").innerHTML = data.weather[0].main;
         document.getElementById("description").innerHTML = data.weather[0].description;
+
+        //Dynamically add an image and set its attribute
+        var icon = document.createElement('img');
         var iconDesc = data.weather[0].description;
         var iconName = data.weather[0].icon;
         var altUrl = "http://openweathermap.org/img/w/";
         var baseUrl = "/static/media/weathericons/";
         var baseIcon = baseUrl + getWeatherIcon(iconName);
         var altIcon = altUrl + getWeatherIcon(iconName);
-        $("#icon").attr({
-            src: baseIcon,
-            alt: iconDesc,
-            onerror: "this.onerror=null;this.src='" + altIcon + "';"
-        });
+
+        icon.id = "icon"
+        icon.src = baseIcon;
+        icon.alt = iconDesc;
+        icon.onerror = "this.onerror=null;this.src='" + altIcon + "';";
+        document.getElementById("current-weather").appendChild(icon);
+        icon.style.width = "50px";
+        icon.style.height = "50px";
     }
 });
 
@@ -132,7 +138,7 @@ $.ajax({
         var json_obj = data["list"];
         // console.log(json_obj);
 
-        document.getElementById("grid").innerHTML = output;
+        // document.getElementById("grid").innerHTML = output;
         // for (var index in data["list"]) {
         //     console.log(
         //     data["list"][index].main.temp,
