@@ -100,11 +100,9 @@ $.ajax({
         // console.log(data);
         document.getElementById("city").innerHTML = data["name"];
         document.getElementById("humidity").innerHTML = "Humidity: " + data["main"].humidity + percent;
-        // document.getElementById("pressure").innerHTML = data["main"].pressure;
         document.getElementById("temp").innerHTML = "Temp: " + Math.round(data["main"].temp) + fahrenheit;
-        document.getElementById("temp_max").innerHTML = "Min Temp: " + Math.round(data["main"].temp_max) + fahrenheit;
-        document.getElementById("temp_min").innerHTML = "Max Temp: " + Math.round(data["main"].temp_min) + fahrenheit;
-        // document.getElementById("main").innerHTML = data.weather[0].main;
+        document.getElementById("temp_min").innerHTML = "Low: " + Math.round(data["main"].temp_min) + fahrenheit;
+        document.getElementById("temp_max").innerHTML = "High: " + Math.round(data["main"].temp_max) + fahrenheit;
         document.getElementById("description").innerHTML = data.weather[0].description;
 
         //Dynamically add an image and set its attribute
@@ -129,26 +127,45 @@ $.ajax({
 
 // Fetch five days/ 3hrs weather forecast JSON data from static folder/api/filename
 $.ajax({
-    url: five_days_forecast_json,
+    url: "https://api.weather.gov/points/27.77,-97.24/forecast",
     dataType: 'json',
     type: 'get',
     cache: true,
     success: function (data) {
-        var chunk = 8;
-        var json_obj = data["list"];
-        // console.log(json_obj);
+        var json_obj = data["properties"];
+        var period = json_obj.periods;
+        var len = period.length;
+        var icon;
+        var wind_speed;
+        var wind_dir;
+        var temp;
+        var header;
+        var desc;
 
-        // document.getElementById("grid").innerHTML = output;
-        // for (var index in data["list"]) {
-        //     console.log(
-        //     data["list"][index].main.temp,
-        //         data["list"][index].weather[0].description,
-        //         data["list"][index].weather[0].icon,
-        //         epochToDate(data["list"][index].dt),
-        //         data["list"].length
-        //     );
+        console.log(period);
+        // Get the first ten (Five days) forecast
+        for (var i = 0; i < len - 4; i++) {
+            console.log(period[i].name)
+            if (period[i].name.toLowerCase().includes("night")) {
+                temp = period[i].temperature;
+                console.log("Low: " + temp)
+            }
+            else {
+                temp = period[i].temperature;
+                console.log("High: " + temp)
+            }
+            header = period[i].name;
+            desc = period[i].shortForecast;
+            wind_speed = period[i].windSpeed;
+            wind_dir = period[i].windDirection;
+            icon = period[i].icon;
+            var forecast = document.getElementById("five-days-forecast");
+            forecast.getElementsByClassName("forecast-item")[i].innerHTML = header + "<br>" + temp + fahrenheit + "<br>" +
+                wind_speed + " " + wind_dir;
+        }
     }
 });
+
 
 // Converts an epoch(unix time) to readable Day, Time AM/PM
 function epochToDay(epoch_time) {

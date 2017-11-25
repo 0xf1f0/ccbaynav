@@ -53,10 +53,10 @@ h1 {
     order: 1;
     flex: 2;
     background-color: lightskyblue;
-    margin-bottom: 0.5%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    border-left: solid 2px white;
 }
 
 #date_time {
@@ -65,13 +65,11 @@ h1 {
     font-size: 100%;
 }
 
-
-#temp {
+.temp {
     font-size: 100%;
 }
 
 #five-days-forecast {
-
     background-color: powderblue;
     order: 2;
     flex: 4;
@@ -80,11 +78,21 @@ h1 {
     flex-wrap: wrap;
 }
 
+.forecast-item {
+    flex: 1;
+    flex-basis: calc(50% - (2 * 2px));
+    border: 2px solid white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
 .graphs {
     height: calc(250px * 6);
     display: flex;
     flex-wrap: wrap;
-
 }
 
 .graph-item {

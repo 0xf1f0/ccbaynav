@@ -5,42 +5,36 @@
   },
   "weather": [
     {
-      "id": 701,
-      "main": "Mist",
-      "description": "mist",
-      "icon": "50d"
-    },
-    {
-      "id": 741,
-      "main": "Fog",
-      "description": "fog",
-      "icon": "50d"
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
     }
   ],
   "base": "stations",
   "main": {
-    "temp": 56.52,
-    "pressure": 1014,
-    "humidity": 88,
-    "temp_min": 48.2,
-    "temp_max": 66.2
+    "temp": 72.59,
+    "pressure": 1015,
+    "humidity": 56,
+    "temp_min": 69.8,
+    "temp_max": 75.2
   },
-  "visibility": 14484,
+  "visibility": 16093,
   "wind": {
-    "speed": 17.02,
-    "deg": 189.501
+    "speed": 12.75,
+    "deg": 190
   },
   "clouds": {
     "all": 1
   },
-  "dt": 1511618220,
+  "dt": 1511626500,
   "sys": {
     "type": 1,
-    "id": 2587,
-    "message": 0.1698,
+    "id": 2708,
+    "message": 0.1672,
     "country": "US",
-    "sunrise": 1511614759,
-    "sunset": 1511652858
+    "sunrise": 1511614764,
+    "sunset": 1511652857
   },
   "id": 4683416,
   "name": "Corpus Christi",
