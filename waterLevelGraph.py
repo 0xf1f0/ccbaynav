@@ -8,7 +8,7 @@ y = [6, 7, 2, 4, 5]
 output_file("lines.html")
 
 # create a new plot with a title and axis labels
-p = figure(plot_width=729.633, plot_height=20, title="simple line example", x_axis_label='x', y_axis_label='y')
+p = figure(plot_width=729.633, plot_height=200, title="simple line example", x_axis_label='x', y_axis_label='y')
 
 # add a line renderer with legend and line thickness
 p.line(x, y, legend="Temp.", line_width=2)
