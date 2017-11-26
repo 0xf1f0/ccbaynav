@@ -369,7 +369,6 @@ h1 {
    Orders the div(s) as a stack
 */
 
-/*
 @media screen and (max-width: 667px) {
     .map-weather {
         display: flex;
@@ -432,7 +431,6 @@ h1 {
     }
 }
 
-*/
 
 /* ----------- Non-Retina Screens ----------- */
 @media screen
