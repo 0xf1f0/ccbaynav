@@ -1,4 +1,6 @@
-import json, requests
+import json
+
+import requests
 
 
 def noaa_request_maker(location, variable, file_name, data):
