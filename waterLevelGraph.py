@@ -15,16 +15,24 @@ pWL = json.dumps(jWL)
 y = []
 x = []
 a = 0
-for z in pWL:
-    y.append(pWL["data"][z].get("v"))
-    x.append(pWL["data"][z].get("t").split(" ")[1:][0])
-    a+=1
+
+for z in jWL["data"]:
+    dY = jWL["data"][0]["v"]
+    dX = jWL["data"][0]["t"].split(" ")[1:][0]
+    if isinstance(dY, list) and len(dY) > 1:
+        y.append(int(1))
+    if isinstance(dX, list) and len(dX) > 1:
+        x.append(int(2))
+    a = +1
+    print z
+print y
+print x
 
 # create a new plot with a title and axis labels
 p = figure(plot_width=729, plot_height=485, title="Water Level Graph", x_axis_label='Time', y_axis_label='Height (ft.)')
 
 # add a line renderer with legend and line thickness
-p.line(x='x', y='y', legend="Water Level", line_width=2)
+p.line(x=x, y=y, legend="Water Level", line_width=2)
 
 # output to static HTML file
 output_file("waterLvlGraph.html")
