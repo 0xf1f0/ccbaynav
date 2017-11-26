@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CCBayNav</title>
+
+    <!-- Imported CSS files -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flexboxgrid.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 <body>
@@ -18,64 +21,92 @@
     <div class="map-weather">
         <div id="map" class="google-maps"></div>
         <div class="weather">
-            <div class="weather-item">
-                <p>Current Weather Info</p>
+            <div id="current-weather">
+                <div id="date_time"></div>
+                <div id="city"></div>
+                <div id="temp"></div>
+                <div id="temp_min"></div>
+                <div id="temp_max"></div>
+                <div id="humidity"></div>
+                <div id="description"></div>
             </div>
-            <div class="weather-item" id="five-days-forecast">
+            <div id="five-days-forecast">
                 <div class="forecast-item">
-                    <p>Day 1</p>
-                    <img src="../static/media/weathericon/0.png">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
                 </div>
                 <div class="forecast-item">
-                    <img src="../static/media/weathericon/0.png">
-
-                    <p>Day 2</p>
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
                 </div>
                 <div class="forecast-item">
-                    <img src="../static/media/weathericon/0.png">
-
-                    <p>Day 3</p>
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
                 </div>
                 <div class="forecast-item">
-                    <img src="../static/media/weathericon/0.png">
-                    <p>Day 4</p>
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
                 </div>
                 <div class="forecast-item">
-                    <img src="../static/media/weathericon/0.png">
-
-                    <p>Day 5</p>
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
+                </div>
+                <div class="forecast-item">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
+                </div>
+                <div class="forecast-item">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
+                </div>
+                <div class="forecast-item">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
+                </div>
+                <div class="forecast-item">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
+                </div>
+                <div class="forecast-item">
+                    <div class="forecast-item-info"></div>
+                    <div class="forecast-item-icon"></div>
                 </div>
             </div>
-            <div class="weather-item"><p>Other Available Info</p></div>
+        </div>
+    </div>
+    <div class="graphs">
+        <div class="graph-item">
+            <p>Graph 1</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 2</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 3</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 4</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 5</p>
+        </div>
+        <div class="graph-item">
+            <p>Graph 6</p>
         </div>
     </div>
 </div>
-</div>
-</div>
-<div class="graphs">
-    <div class="graph-item">
-        <p>Graph 1</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 2</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 3</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 4</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 5</p>
-    </div>
-    <div class="graph-item">
-        <p>Graph 6</p>
-    </div>
-</div>
-</div>
+<!-- Imported Javascript files -->
+<script src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/moment.js')}}"></script>
+<script src="{{url_for('static', filename='js/moment-timezone-with-data-2012-2022.js')}}"></script>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<!-- Google Maps API call -->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDViVVYzVGMltfF0nyNXbr8a7uSS3lggro&callback=initMap">
 </script>
+
 </body>
 </html>

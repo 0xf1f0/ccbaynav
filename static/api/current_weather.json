@@ -1,0 +1,42 @@
+{
+  "coord": {
+    "lon": -97.4,
+    "lat": 27.8
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 73.15,
+    "pressure": 1015,
+    "humidity": 94,
+    "temp_min": 69.8,
+    "temp_max": 75.2
+  },
+  "visibility": 16093,
+  "wind": {
+    "speed": 8.05,
+    "deg": 110
+  },
+  "clouds": {
+    "all": 1
+  },
+  "dt": 1511654160,
+  "sys": {
+    "type": 1,
+    "id": 2587,
+    "message": 0.1674,
+    "country": "US",
+    "sunrise": 1511701178,
+    "sunset": 1511739255
+  },
+  "id": 4683416,
+  "name": "Corpus Christi",
+  "cod": 200
+}
