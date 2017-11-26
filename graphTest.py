@@ -1,4 +1,4 @@
-from bokeh.plotting import figure, output_file, save
+from bokeh.plotting import figure, output_file, show
 
 # prepare some data
 x = [0.1, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
@@ -25,4 +25,4 @@ p.circle(x, y1, legend="y=10^x", fill_color="red", line_color="red", size=6)
 p.line(x, y2, legend="y=10^x^2", line_color="orange", line_dash="4 4")
 
 # show the results
-save(p)
+show(p)
