@@ -141,27 +141,37 @@ $.ajax({
         var temp;
         var header;
         var desc;
+        var iconUrl;
 
         console.log(period);
         // Get the first ten (Five days) forecast
         for (var i = 0; i < len - 4; i++) {
-            console.log(period[i].name)
+            // console.log(period[i].name)
             if (period[i].name.toLowerCase().includes("night")) {
                 temp = period[i].temperature;
-                console.log("Low: " + temp)
+                // console.log("Low: " + temp)
             }
             else {
                 temp = period[i].temperature;
-                console.log("High: " + temp)
+                // console.log("High: " + temp)
             }
             header = period[i].name;
             desc = period[i].shortForecast;
             wind_speed = period[i].windSpeed;
             wind_dir = period[i].windDirection;
-            icon = period[i].icon;
+            iconUrl = period[i].icon;
             var forecast = document.getElementById("five-days-forecast");
-            forecast.getElementsByClassName("forecast-item")[i].innerHTML = header + "<br>" + temp + fahrenheit + "<br>" +
-                wind_speed + " " + wind_dir;
+            forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = header + "<br>" + temp + fahrenheit +
+                "<br>" + desc;
+
+            //Dynamically add an image and set its attribute
+            icon = document.createElement('img');
+            icon.className = "forecast-icon";
+            icon.src = iconUrl;
+            icon.alt = "forecast-icon";
+            document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
+            icon.style.width = "86px";
+            icon.style.height = "86px";
         }
     }
 });
