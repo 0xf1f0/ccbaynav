@@ -1,9 +1,10 @@
 import json
+
 import requests
 
 
 def noaa_request_maker(location, variable, file_name, data):
-    noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=MLLW&units=english&time_zone=lst&application=ccbaynav&format=json'
+    noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=STND&units=english&time_zone=lst&application=ccbaynav&format=json'
     request_url = noaa_base_url + '&station=' + location + '&product=' + variable
     data_request = requests.get(request_url)
     temp_data = data_request.json()
@@ -38,9 +39,8 @@ def get_noaa_data():
         for var in var_list:
             # data [key] = {}
             noaa_request_maker(value, var, key, data)
-        # TODO: look at changing the path after switching to Linux environment
-        with open('static/api/' + key + '.json', 'w') as f:
-            json.dump(data, f, sort_keys=True)
+        with open(key + '.json', 'w') as f:
+            json.dump(data, f)
 
 
 get_noaa_data()
