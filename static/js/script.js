@@ -85,8 +85,10 @@ function initMap() {
 
 // Fetch current weather JSON data from static folder/api/filename
 
-var current_weather_json = "/static/api/current_weather.json"
-var five_days_forecast_json = "/static/api/five_days_forecast.json"
+var current_weather_json = "/static/api/current_weather.json";
+var five_days_forecast_json = "/static/api/five_days_forecast.json";
+var marine_traffic_json = "/static/api/marine_traffic.json";
+
 var fahrenheit = " °F";
 var percent = '%';
 
@@ -114,7 +116,7 @@ $.ajax({
         var baseIcon = baseUrl + getWeatherIcon(iconName);
         var altIcon = altUrl + getWeatherIcon(iconName);
 
-        icon.id = "icon"
+        icon.id = "icon";
         icon.src = baseIcon;
         icon.alt = iconDesc;
         icon.onerror = "this.onerror=null;this.src='" + altIcon + "';";
@@ -143,7 +145,7 @@ $.ajax({
         var desc;
         var iconUrl;
 
-        console.log(period);
+        // console.log(period);
         // Get the first ten (Five days) forecast
         for (var i = 0; i < len - 4; i++) {
             // console.log(period[i].name)
@@ -173,6 +175,21 @@ $.ajax({
             icon.style.width = "86px";
             icon.style.height = "86px";
         }
+    }
+});
+
+
+/*
+    Display Marine Vessel Traffic on Google Maps
+ */
+$.ajax({
+    url: marine_traffic_json,
+    dataType: 'json',
+    type: 'get',
+    cache: true,
+    success: function (data) {
+
+        console.log(data);
     }
 });
 
@@ -248,3 +265,5 @@ function getWeatherIcon(iconName) {
     }
     return (iconFile + ext);
 }
+
+

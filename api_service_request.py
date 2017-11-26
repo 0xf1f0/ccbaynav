@@ -1,5 +1,3 @@
-from flask import url_for
-
 from api_service import api_data_request
 from getkey import search_key
 
@@ -22,7 +20,7 @@ http://services.marinetraffic.com/api/exportvessels/v:8/8205c862d0572op1655989d9
 
 
 def marine_traffic_request():
-    mt_json_file = url_for('static', filename='api/marine_traffic.json')
+    mt_json_file = 'static/api/marine_traffic.json'
     api_key = search_key(api_name="marine")
     min_lat = 27.6289
     max_lat = 27.92295
@@ -91,3 +89,4 @@ def open_weather_request():
 
 
 open_weather_request()
+marine_traffic_request()
