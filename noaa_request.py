@@ -40,7 +40,7 @@ def get_noaa_data():
             # data [key] = {}
             noaa_request_maker(value, var, key, data)
         with open(key + '.json', 'w') as f:
-            json.dump(data, f)
+            json.dump(data, f, sort_keys=True)
 
 
 get_noaa_data()
