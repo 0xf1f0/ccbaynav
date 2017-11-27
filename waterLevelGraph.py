@@ -1,4 +1,5 @@
 # import NOAA_request
+import datetime
 import json
 
 from bokeh.io import output_file, show
@@ -6,24 +7,19 @@ from bokeh.plotting import figure
 
 # noaaData = NOAA_request.get_noaa_data()
 # print(noaaData)
-waterLvl_File = open("Water_Levels.json", "r")
+waterLvl_File = open("lexington.json", "r")
 jWL = json.load(waterLvl_File)
 waterLvl_File.close()
-pWL = json.dumps(jWL)
+
 
 # prepare some data
 y = []
 x = []
 
-for z in jWL["data"]:
-    if isinstance(y, list) and len(y) > 1:
-        y.append(int(z["t"].split(" ")[1:][0]))
-    if isinstance(x, list) and len(x) > 1:
-        x.append(int(z["v"]))
-        # print z
-print z["t"].split(" ")[1:][0]
-print
-print z["v"]
+for z in jWL['water_level']:
+    print z, jWL['water_level'][z]
+    y.append(jWL['water_level'][z])
+    x.append(datetime.datetime.strptime(z, '%Y-%m-%d %H:%M'))
 
 # create a new plot with a title and axis labels
 p = figure(plot_width=729, plot_height=485, title="Water Level Graph", x_axis_label='Time', y_axis_label='Height (ft.)')
