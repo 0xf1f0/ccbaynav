@@ -8,7 +8,7 @@ from bokeh.plotting import figure
 
 # noaaData = NOAA_request.get_noaa_data()
 # print(noaaData)
-waterLvl_File = open("lexington.json", "r")
+waterLvl_File = open("static/api/lexington.json", "r")
 jwl = json.load(waterLvl_File)
 waterLvl_File.close()
 

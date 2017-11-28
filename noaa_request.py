@@ -39,7 +39,7 @@ def get_noaa_data():
         for var in var_list:
             # data [key] = {}
             noaa_request_maker(value, var, key, data)
-        with open(key + '.json', 'w') as f:
+        with open('static/api/' + key + '.json', 'w') as f:
             json.dump(data, f, sort_keys=True)
 
 
