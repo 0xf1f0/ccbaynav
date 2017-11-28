@@ -112,7 +112,7 @@ function initMap() {
 
                 shipPosition = new google.maps.LatLng(shipLat, shipLon);
                 shipInfo[i] = '<div class="ship_info">' +
-                    '<h6>' + "Name: " + shipName + '</h6>' +
+                    '<h6>' + shipName + '</h6>' +
                     '<h6>' + "Flag: " + shipFlag + '</h6>' +
                     '<h6>' + "Call Sign: " + shipCallsign + '</h6>' +
                     '<h6>' + "Speed: " + shipSpeed + '</h6>' +
@@ -129,6 +129,13 @@ function initMap() {
                     icon: 'static/media/mapicons/vessel.png'
                 });
 
+                google.maps.event.addListener(shipMarker, 'click', (function (shipMarker, i) {
+                    return function () {
+                        shipInfoWindow.setContent(shipInfo[i]);
+                        shipInfoWindow.open(map, shipMarker);
+                    }
+
+                })(shipMarker, i));
                 google.maps.event.addListener(shipMarker, 'mouseover', (function (shipMarker, i) {
                     return function () {
                         shipInfoWindow.setContent(shipInfo[i]);
