@@ -26,14 +26,21 @@ def marine_traffic_request():
     max_lat = 27.92295
     min_lon = -97.52313
     max_lon = -96.99029
-    timespan = 20
-    protocol = "json"
+    protocol = "jsono"
+    msg_type = "extended"
+
+    # API call for : Vessel Positions in a custom area
     marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) + "/MINLAT:" +
                               str(min_lat) + "/MAXLAT:" + str(max_lat) + "/MINLON:" + str(min_lon) + "/MAXLON:" +
-                              str(max_lon) + "/timespan:" + str(timespan) + "/protocol:" + protocol)
+                              str(max_lon) + "/msgtype:" + msg_type + "/protocol:" + protocol)
+
+    # API call for : Vessel Positions in a predefined area
+    # marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) +
+    #                           "/msgtype:" + msg_type + "/protocol:" + protocol)
+
     #   print marine_traffic_api_url
 
-    #   Call the API service for JSON data
+    #   Call the API service for JSON data and store the response in a file
     mt_data = api_data_request(api_url=marine_traffic_api_url, json_file=mt_json_file)
     if mt_data is not None:
         return 200
@@ -53,7 +60,6 @@ def open_weather_request():
     base_url = "http://api.openweathermap.org/data/2.5"
     city_id = 4683416
     unit = "imperial"
-    count = 5
 
     api_key = search_key(api_name="weather")
     if api_key is None:
@@ -89,4 +95,4 @@ def open_weather_request():
 
 
 open_weather_request()
-marine_traffic_request()
+# marine_traffic_request()

@@ -7,6 +7,13 @@ var initial_lng = -97.245233;          //  The corresponding longitude of map ce
 var initial_zoom = 11;                 //  The corresponding zoom of map center at initialization.
 var map;
 
+// Fetch current weather JSON data from static folder/api/filename
+var current_weather_json = "/static/api/current_weather.json";
+var five_days_forecast_json = "/static/api/five_days_forecast.json";
+var marine_traffic_json = "/static/api/marine_traffic.json";
+var fahrenheit = " °F";
+var percent = '%';
+
 
 //This function initializes the Google Maps
 
@@ -18,47 +25,124 @@ function initMap() {
         mapTypeId: 'roadmap'
     });
 
-    //Data Stations
-    var markers = [['Aransas Pass', 27.8366, -97.0391],
-        ['Port_Aransas', 27.8397, -97.0725],
+    //Data Stations markers
+    var station_markers = [['Aransas Pass', 27.8366, -97.0391],
+        ['Port Aransas', 27.8397, -97.0725],
         ['USS Lexington', 27.8149, -97.3892],
         ['Bob Hall Pier', 27.5800, -97.2167]
     ];
 
-    // Info Window Content
-    var infoWindowContent = [
-        ['<div class="info_content">' + '<h3>Station: Aransas Pass</h3>' + '</div>'],
-        ['<div class="info_content">' + '<h3>Station: Port Aransas</h3>' + '</div>'],
-        ['<div class="info_content">' + '<h3>Station: USS Lexington</h3>' + '</div>'],
-        ['<div class="info_content">' + '<h3>Station: Bob Hall Pier</h3>' + '</div>'],];
 
-    // Display multiple markers on a map
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
-
+    // Display station markers on a map
+    var stationInfoWindow = new google.maps.InfoWindow();
+    var marker;
+    var infoWindowContent = [station_markers.length];
     /* Loop through the array of markers(data stations)
        Place the markers on the map
      */
-    for (i = 0; i < markers.length; i++) {
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+    for (var i = 0; i < station_markers.length; i++) {
+
+        // Info Window Content
+        infoWindowContent[i] = '<div class="info_content">' + '<h6>' + "Station: " + station_markers[i][0] + '</h6>' + '</div>';
+        var position = new google.maps.LatLng(station_markers[i][1], station_markers[i][2]);
         marker = new google.maps.Marker({
             position: position,
             map: map,
             icon: 'static/media/mapicons/lighthouse.png',
-            title: markers[i][0]
+            title: station_markers[i][0]
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                infoWindow.setContent(infoWindowContent[i][0]);
-                infoWindow.open(map, marker);
+                stationInfoWindow.setContent(infoWindowContent[i]);
+                stationInfoWindow.open(map, marker);
             }
         })(marker, i));
     }
 
-    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    // Override the map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
         this.setZoom(initial_zoom);
         google.maps.event.removeListener(boundsListener);
+    });
+
+
+    /*
+        Display Marine Vessel Traffic on Google Maps
+     */
+    $.ajax({
+        url: marine_traffic_json,
+        dataType: 'json',
+        type: 'get',
+        cache: true,
+        success: function (data) {
+
+            //Variables for storing marine traffic data
+            var shipName;
+            var shipTypeName;
+            var shipMmsi;
+            var shipLat;
+            var shipLon;
+            var shipSpeed;
+            var shipCallsign;
+            var shipFlag;
+            var shipDestination;
+            var shipEta;
+
+            //Variables for display ship information
+            var shipMarker;
+            var shipPosition;
+            var shipInfo = [data.length];
+            var shipInfoWindow;
+
+            // console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                shipName = data[i].SHIPNAME;
+                shipTypeName = data[i].TYPE_NAME;
+                shipMmsi = data[i].MMSI;
+                shipLat = data[i].LAT;
+                shipLon = data[i].LON;
+                shipSpeed = data[i].SPEED + " Knot(s)";
+                shipCallsign = data[i].CALLSIGN;
+                shipFlag = data[i].FLAG;
+                shipDestination = data[i].DESTINATION;
+                shipEta = data[i].ETA;
+
+                // console.log(shipName, typeName, lat, lon, callSign, flag, destination, eta);
+
+                shipPosition = new google.maps.LatLng(shipLat, shipLon);
+                shipInfo[i] = '<div class="ship_info">' +
+                    '<h6>' + "Name: " + shipName + '</h6>' +
+                    '<h6>' + "Flag: " + shipFlag + '</h6>' +
+                    '<h6>' + "Call Sign: " + shipCallsign + '</h6>' +
+                    '<h6>' + "Speed: " + shipSpeed + '</h6>' +
+                    '<h6>' + "Destination: " + shipDestination + '</h6>' +
+                    '<h6>' + "ETA: " + shipEta + '</h6>' +
+                    '</div>';
+
+                // console.log(shipInfo[i]);
+
+                shipInfoWindow = new google.maps.InfoWindow();
+                shipMarker = new google.maps.Marker({
+                    position: shipPosition,
+                    map: map,
+                    icon: 'static/media/mapicons/vessel.png'
+                });
+
+                google.maps.event.addListener(shipMarker, 'mouseover', (function (shipMarker, i) {
+                    return function () {
+                        shipInfoWindow.setContent(shipInfo[i]);
+                        shipInfoWindow.open(map, shipMarker);
+                    }
+                })(shipMarker, i));
+
+                google.maps.event.addListener(shipMarker, 'mouseout', (function () {
+                    return function () {
+                        shipInfoWindow.close()
+                    }
+                })());
+            }
+        }
     });
 }
 
@@ -82,15 +166,6 @@ function initMap() {
     }, 1000);
 }());
 
-
-// Fetch current weather JSON data from static folder/api/filename
-
-var current_weather_json = "/static/api/current_weather.json";
-var five_days_forecast_json = "/static/api/five_days_forecast.json";
-var marine_traffic_json = "/static/api/marine_traffic.json";
-
-var fahrenheit = " °F";
-var percent = '%';
 
 $.ajax({
     url: current_weather_json,
@@ -175,21 +250,6 @@ $.ajax({
             icon.style.width = "86px";
             icon.style.height = "86px";
         }
-    }
-});
-
-
-/*
-    Display Marine Vessel Traffic on Google Maps
- */
-$.ajax({
-    url: marine_traffic_json,
-    dataType: 'json',
-    type: 'get',
-    cache: true,
-    success: function (data) {
-
-        console.log(data);
     }
 });
 
