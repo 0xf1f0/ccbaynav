@@ -9,7 +9,8 @@ var map;
 
 // Fetch current weather JSON data from static folder/api/filename
 var current_weather_json = "/static/api/current_weather.json";
-var five_days_forecast_json = "/static/api/five_days_forecast.json";
+// var five_days_forecast_json = "/static/api/five_days_forecast.json";
+var forecast_base_url = "https://api.weather.gov/points/";
 var marine_traffic_json = "/static/api/marine_traffic.json";
 var fahrenheit = " °F";
 var percent = '%';
@@ -37,6 +38,10 @@ function initMap() {
     var stationInfoWindow = new google.maps.InfoWindow();
     var marker;
     var infoWindowContent = [station_markers.length];
+    var weather_forecast = forecast_base_url + initial_lat + "," + initial_lng + "/forecast";
+
+    // "27.77,-97.24/forecast";
+
     /* Loop through the array of markers(data stations)
        Place the markers on the map
      */
@@ -60,13 +65,20 @@ function initMap() {
         })(marker, i));
     }
 
-    // Override the map zoom level once our fitBounds function runs (Make sure it only runs once)
-    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-        this.setZoom(initial_zoom);
-        google.maps.event.removeListener(boundsListener);
-    });
+    // // Override the map zoom level once our fitBounds function runs (Make sure it only runs once)
+    // var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function () {
+    //     this.setZoom(initial_zoom);
+    //     google.maps.event.removeListener(boundsListener);
+    // });
 
 
+    displayTime();
+    displayMarineTraffic();
+    getWeatherCurrent(current_weather_json);
+    getWeatherForecast(weather_forecast);
+}
+
+function displayMarineTraffic() {
     /*
         Display Marine Vessel Traffic on Google Maps
      */
@@ -156,8 +168,7 @@ function initMap() {
 /*
     Anonymous functions that displays the local time (CST)
 */
-
-(function () {
+function displayTime() {
     var timeElement = document.getElementById("date_time");
     var date = null;
     var timezone = 'America/Chicago';
@@ -171,95 +182,98 @@ function initMap() {
     setInterval(function () {
         updateClock(timeElement);
     }, 1000);
-}());
+}
 
+function getWeatherCurrent(url) {
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'get',
+        cache: true,
+        success: function (data) {
 
-$.ajax({
-    url: current_weather_json,
-    dataType: 'json',
-    type: 'get',
-    cache: true,
-    success: function (data) {
-
-        // console.log(data);
-        document.getElementById("city").innerHTML = data["name"];
-        document.getElementById("humidity").innerHTML = "Humidity: " + data["main"].humidity + percent;
-        document.getElementById("temp").innerHTML = "Temp: " + Math.round(data["main"].temp) + fahrenheit;
-        document.getElementById("temp_min").innerHTML = "Low: " + Math.round(data["main"].temp_min) + fahrenheit;
-        document.getElementById("temp_max").innerHTML = "High: " + Math.round(data["main"].temp_max) + fahrenheit;
-        document.getElementById("description").innerHTML = data.weather[0].description;
-
-        //Dynamically add an image and set its attribute
-        var icon = document.createElement('img');
-        var iconDesc = data.weather[0].description;
-        var iconName = data.weather[0].icon;
-        var altUrl = "http://openweathermap.org/img/w/";
-        var baseUrl = "/static/media/weathericons/";
-        var baseIcon = baseUrl + getWeatherIcon(iconName);
-        var altIcon = altUrl + getWeatherIcon(iconName);
-
-        icon.id = "icon";
-        icon.src = baseIcon;
-        icon.alt = iconDesc;
-        icon.onerror = "this.onerror=null;this.src='" + altIcon + "';";
-        document.getElementById("current-weather").appendChild(icon);
-        icon.style.width = "50px";
-        icon.style.height = "50px";
-    }
-});
-
-
-// Fetch five days/ 3hrs weather forecast JSON data from static folder/api/filename
-$.ajax({
-    url: "https://api.weather.gov/points/27.77,-97.24/forecast",
-    dataType: 'json',
-    type: 'get',
-    cache: true,
-    success: function (data) {
-        var json_obj = data["properties"];
-        var period = json_obj.periods;
-        var len = period.length;
-        var icon;
-        var wind_speed;
-        var wind_dir;
-        var temp;
-        var header;
-        var desc;
-        var iconUrl;
-
-        // console.log(period);
-        // Get the first ten (Five days) forecast
-        for (var i = 0; i < len - 4; i++) {
-            // console.log(period[i].name)
-            if (period[i].name.toLowerCase().includes("night")) {
-                temp = period[i].temperature;
-                // console.log("Low: " + temp)
-            }
-            else {
-                temp = period[i].temperature;
-                // console.log("High: " + temp)
-            }
-            header = period[i].name;
-            desc = period[i].shortForecast;
-            wind_speed = period[i].windSpeed;
-            wind_dir = period[i].windDirection;
-            iconUrl = period[i].icon;
-            var forecast = document.getElementById("five-days-forecast");
-            forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = header + "<br>" + temp + fahrenheit +
-                "<br>" + desc;
+            // console.log(data);
+            document.getElementById("city").innerHTML = data["name"];
+            document.getElementById("humidity").innerHTML = "Humidity: " + data["main"].humidity + percent;
+            document.getElementById("temp").innerHTML = "Temp: " + Math.round(data["main"].temp) + fahrenheit;
+            document.getElementById("temp_min").innerHTML = "Low: " + Math.round(data["main"].temp_min) + fahrenheit;
+            document.getElementById("temp_max").innerHTML = "High: " + Math.round(data["main"].temp_max) + fahrenheit;
+            document.getElementById("description").innerHTML = data.weather[0].description;
 
             //Dynamically add an image and set its attribute
-            icon = document.createElement('img');
-            icon.className = "forecast-icon";
-            icon.src = iconUrl;
-            icon.alt = "forecast-icon";
-            document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
-            icon.style.width = "86px";
-            icon.style.height = "86px";
-        }
-    }
-});
+            var icon = document.createElement('img');
+            var iconDesc = data.weather[0].description;
+            var iconName = data.weather[0].icon;
+            var altUrl = "http://openweathermap.org/img/w/";
+            var baseUrl = "/static/media/weathericons/";
+            var baseIcon = baseUrl + getWeatherIcon(iconName);
+            var altIcon = altUrl + getWeatherIcon(iconName);
 
+            icon.id = "icon";
+            icon.src = baseIcon;
+            icon.alt = iconDesc;
+            icon.onerror = "this.onerror=null;this.src='" + altIcon + "';";
+            document.getElementById("current-weather").appendChild(icon);
+            icon.style.width = "50px";
+            icon.style.height = "50px";
+        }
+    });
+
+}
+
+// Fetch five days/ Night + Day weather forecast JSON data from static folder/api/filename
+function getWeatherForecast(url) {
+
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'get',
+        cache: true,
+        success: function (data) {
+            var json_obj = data["properties"];
+            var period = json_obj.periods;
+            var len = period.length;
+            var icon;
+            var wind_speed;
+            var wind_dir;
+            var temp;
+            var header;
+            var desc;
+            var iconUrl;
+
+            // console.log(period);
+            // Get the first ten (Five days) forecast
+            for (var i = 0; i < len - 4; i++) {
+                // console.log(period[i].name)
+                if (period[i].name.toLowerCase().includes("night")) {
+                    temp = period[i].temperature;
+                    // console.log("Low: " + temp)
+                }
+                else {
+                    temp = period[i].temperature;
+                    // console.log("High: " + temp)
+                }
+                header = period[i].name;
+                desc = period[i].shortForecast;
+                wind_speed = period[i].windSpeed;
+                wind_dir = period[i].windDirection;
+                iconUrl = period[i].icon;
+                var forecast = document.getElementById("five-days-forecast");
+                forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = header + "<br>" + temp + fahrenheit +
+                    "<br>" + desc;
+
+                //Dynamically add an image and set its attribute
+                icon = document.createElement('img');
+                icon.className = "forecast-icon";
+                icon.src = iconUrl;
+                icon.alt = "forecast-icon";
+                document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
+                icon.style.width = "86px";
+                icon.style.height = "86px";
+            }
+        }
+    });
+}
 
 // Converts an epoch(unix time) to readable Day, Time AM/PM
 function epochToDay(epoch_time) {
