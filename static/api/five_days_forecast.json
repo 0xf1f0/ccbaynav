@@ -1,19 +1,19 @@
 {
   "cod": "200",
-  "message": 0.0037,
+  "message": 0.1672,
   "cnt": 40,
   "list": [
     {
       "dt": 1511892000,
       "main": {
-        "temp": 74.01,
-        "temp_min": 74.01,
+        "temp": 71.91,
+        "temp_min": 71.91,
         "temp_max": 74.74,
         "pressure": 1030.44,
         "sea_level": 1030.62,
         "grnd_level": 1030.44,
         "humidity": 77,
-        "temp_kf": -0.4
+        "temp_kf": -1.58
       },
       "weather": [
         {
@@ -38,14 +38,14 @@
     {
       "dt": 1511902800,
       "main": {
-        "temp": 74.21,
-        "temp_min": 74.21,
+        "temp": 72.57,
+        "temp_min": 72.57,
         "temp_max": 74.69,
         "pressure": 1029.2,
         "sea_level": 1029.36,
         "grnd_level": 1029.2,
         "humidity": 76,
-        "temp_kf": -0.27
+        "temp_kf": -1.18
       },
       "weather": [
         {
@@ -70,14 +70,14 @@
     {
       "dt": 1511913600,
       "main": {
-        "temp": 72.54,
-        "temp_min": 72.54,
+        "temp": 71.37,
+        "temp_min": 71.37,
         "temp_max": 72.78,
         "pressure": 1029.85,
         "sea_level": 1030.1,
         "grnd_level": 1029.85,
         "humidity": 82,
-        "temp_kf": -0.13
+        "temp_kf": -0.79
       },
       "weather": [
         {
@@ -102,14 +102,14 @@
     {
       "dt": 1511924400,
       "main": {
-        "temp": 70.73,
-        "temp_min": 70.73,
+        "temp": 70.02,
+        "temp_min": 70.02,
         "temp_max": 70.73,
         "pressure": 1031.62,
         "sea_level": 1031.89,
         "grnd_level": 1031.62,
         "humidity": 90,
-        "temp_kf": 0
+        "temp_kf": -0.39
       },
       "weather": [
         {
