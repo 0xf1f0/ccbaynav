@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 
@@ -37,7 +38,7 @@ def get_noaa_data():
         print key
         for var in var_list:
             # data [key] = {}
-            noaa_request_maker(value, var, key, data)
+            noaa_request_maker(location=value, variable=var, file_name=key, data=data)
         # TODO: look at changing the path after switching to Linux environment
         with open('static/api/' + key + '.json', 'w') as f:
             json.dump(data, f, sort_keys=True)

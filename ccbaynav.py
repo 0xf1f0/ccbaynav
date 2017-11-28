@@ -1,4 +1,5 @@
 # TODO: Change debug mode to false during production
+# TODO: Create a 404 Page
 from flask import Flask, render_template
 
 app = Flask(__name__)

@@ -9,7 +9,6 @@ var map;
 
 // Fetch current weather JSON data from static folder/api/filename
 var current_weather_json = "/static/api/current_weather.json";
-// var five_days_forecast_json = "/static/api/five_days_forecast.json";
 var forecast_base_url = "https://api.weather.gov/points/";
 var marine_traffic_json = "/static/api/marine_traffic.json";
 var fahrenheit = " °F";
@@ -20,17 +19,29 @@ var percent = '%';
 
 function initMap() {
     var latlng = {lat: initial_lat, lng: initial_lng};
+    var default_forecast_url = forecast_base_url + initial_lat + ',' + initial_lng + "/forecast";
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: initial_zoom,
         center: latlng,
         mapTypeId: 'roadmap'
     });
 
-    //Data Stations markers
+    displayTime();
+    displayStations();
+    displayMarineTraffic();
+    getWeatherCurrent(current_weather_json);
+    getWeatherForecast(default_forecast_url);
+}
+
+function displayStations() {
+
+    //TODO: Remove Houston Central station markers
+    //Data Stations markers as a 2-Dimensional Array
     var station_markers = [['Aransas Pass', 27.8366, -97.0391],
         ['Port Aransas', 27.8397, -97.0725],
         ['USS Lexington', 27.8149, -97.3892],
-        ['Bob Hall Pier', 27.5800, -97.2167]
+        ['Bob Hall Pier', 27.5800, -97.2167],
+        ['Houston Central', 29.64, -95.28]
     ];
 
 
@@ -38,18 +49,23 @@ function initMap() {
     var stationInfoWindow = new google.maps.InfoWindow();
     var marker;
     var infoWindowContent = [station_markers.length];
-    var weather_forecast = forecast_base_url + initial_lat + "," + initial_lng + "/forecast";
+    var station_weather_forecast;
+    var position;
 
-    // "27.77,-97.24/forecast";
 
     /* Loop through the array of markers(data stations)
        Place the markers on the map
      */
     for (var i = 0; i < station_markers.length; i++) {
 
+        //Get weather forecast for a base station
+        station_weather_forecast = forecast_base_url + station_markers[i][1] +
+            "," + station_markers[i][2] + "/forecast";
+
         // Info Window Content
-        infoWindowContent[i] = '<div class="info_content">' + '<h6>' + "Station: " + station_markers[i][0] + '</h6>' + '</div>';
-        var position = new google.maps.LatLng(station_markers[i][1], station_markers[i][2]);
+        infoWindowContent[i] = '<div class="info_content">' + '<h6>' + "Station: " + station_markers[i][0] +
+            '</h6>' + '</div>';
+        position = new google.maps.LatLng(station_markers[i][1], station_markers[i][2]);
         marker = new google.maps.Marker({
             position: position,
             map: map,
@@ -57,25 +73,17 @@ function initMap() {
             title: station_markers[i][0]
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+        google.maps.event.addListener(marker, 'click', (function (marker, i, station_weather_forecast) {
             return function () {
                 stationInfoWindow.setContent(infoWindowContent[i]);
                 stationInfoWindow.open(map, marker);
+                // console.log(station_weather_forecast);
+                if ($('.forecast-item-info').empty() && $('.forecast-item-icon').empty()) {
+                    getWeatherForecast(station_weather_forecast);
+                }
             }
-        })(marker, i));
+        })(marker, i, station_weather_forecast));
     }
-
-    // // Override the map zoom level once our fitBounds function runs (Make sure it only runs once)
-    // var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function () {
-    //     this.setZoom(initial_zoom);
-    //     google.maps.event.removeListener(boundsListener);
-    // });
-
-
-    displayTime();
-    displayMarineTraffic();
-    getWeatherCurrent(current_weather_json);
-    getWeatherForecast(weather_forecast);
 }
 
 function displayMarineTraffic() {
@@ -240,8 +248,9 @@ function getWeatherForecast(url) {
             var header;
             var desc;
             var iconUrl;
+            var content;
 
-            // console.log(period);
+            // console.log("Calling: " + url, len);
             // Get the first ten (Five days) forecast
             for (var i = 0; i < len - 4; i++) {
                 // console.log(period[i].name)
@@ -259,17 +268,18 @@ function getWeatherForecast(url) {
                 wind_dir = period[i].windDirection;
                 iconUrl = period[i].icon;
                 var forecast = document.getElementById("five-days-forecast");
-                forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = header + "<br>" + temp + fahrenheit +
-                    "<br>" + desc;
+                content = header + "<br>" + temp + fahrenheit + "<br>" + desc;
 
-                //Dynamically add an image and set its attribute
+                //Dynamically add an icon and set its attribute
                 icon = document.createElement('img');
-                icon.className = "forecast-icon";
                 icon.src = iconUrl;
                 icon.alt = "forecast-icon";
-                document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
                 icon.style.width = "86px";
                 icon.style.height = "86px";
+
+                // Display the icon and content
+                forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = content;
+                document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
             }
         }
     });
@@ -279,8 +289,7 @@ function getWeatherForecast(url) {
 function epochToDay(epoch_time) {
     // var format = 'dddd, MMMM Do YYYY, h:mm:ss A';
     var format = "ddd, h:mm A";
-    var day = moment.unix(epoch_time).format(format);
-    return day;
+    return moment.unix(epoch_time).format(format);
 }
 
 //Get the icon url for a corresponding icon
