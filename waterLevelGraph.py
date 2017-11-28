@@ -40,7 +40,7 @@ p.xaxis.formatter = DatetimeTickFormatter(
 p.line(x=x, y=y, legend="Water Level", line_width=2)
 
 # output to static HTML file
-output_file("waterLvlGraph.html")
+output_file("water_level_graph.html")
 
 # save the results
 show(p)
