@@ -3,54 +3,52 @@ import json
 import requests
 
 
-def noaa_request_maker(location, variable, file_name, data):
+# function to capture data for a specified station from noaa
+def noaa_request_maker(loc_id, variable, file_name, data):
     noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=MLLW&units=english&time_zone=lst&application=ccbaynav&format=json'
-    request_url = noaa_base_url + '&station=' + location + '&product=' + variable
+    request_url = noaa_base_url + '&station=' + loc_id + '&product=' + variable
     data_request = requests.get(request_url)
     temp_data = data_request.json()
     if 'error' in temp_data:
-        print location, variable, "error"
+        print loc_id, variable, "error"
 
+    # read in all the different wind values
     elif variable is 'wind':
-        print 'wind'
-        data['wind_speed'] = {}
-        data['wind_direction'] = {}
-        data['wind_gust'] = {}
+        data['wind_speed'][file_name] = {}
+        data['wind_direction'][file_name] = {}
+        data['wind_gust'][file_name] = {}
         for x in range(0, len(temp_data['data'])):
             time = temp_data['data'][x]['t']
-            data['wind_speed'][time] = temp_data['data'][x]['s']
-            data['wind_direction'][time] = temp_data['data'][x]['d']
-            data['wind_gust'][time] = temp_data['data'][x]['g']
+            data['wind_speed'][file_name][time] = temp_data['data'][x]['s']
+            data['wind_direction'][file_name][time] = temp_data['data'][x]['d']
+            data['wind_gust'][file_name][time] = temp_data['data'][x]['g']
+    # read in all the other values (not wind)
     else:
-        print variable
-        data[variable] = {}
+        data[variable][file_name] = {}
         for x in range(0, len(temp_data['data'])):
             time = temp_data['data'][x]['t']
-            data[variable][time] = temp_data['data'][x]['v']
+            data[variable][file_name][time] = temp_data['data'][x]['v']
 
 
+# function to query NOAA in a loop for all the wanted stations and variables
 def get_noaa_data():
     locations = {"lexington": "8775296", "port_aransas": "8775237", "aransas_pass": "8775241",
                  "bob_hall_pier": "8775870"}
     var_list = ['wind', 'water_level', 'air_temperature', 'water_temperature']
-    for (key, value) in locations.items():
-        data = {}
-        print key
+    end_var_list = ['wind_gust', 'wind_direction', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
+    data = {}
+
+    for var in end_var_list:
+        data[var] = {}
+    for (loc, loc_id) in locations.items():
+        print loc
         for var in var_list:
-            # data [key] = {}
-            noaa_request_maker(location=value, variable=var, file_name=key, data=data)
-        # TODO: look at changing the path after switching to Linux environment
-        with open('static/api/' + key + '.json', 'w') as f:
-            json.dump(data, f, sort_keys=True)
+            noaa_request_maker(loc_id, var, loc, data)
+
+    # loop through data array and save noaa data with a separate file for each variable
+    for var in end_var_list:
+        with open('static/api/' + var + '.json', 'w') as f:
+            json.dump(data[var], f, sort_keys=True)
 
 
 get_noaa_data()
-
-# wind t s d g time speed direction gust
-# water level t v s time verified sigma
-# air and water temp t v time value
-
-
-# print data['data'][0]['v']
-
-# https://tidesandcurrents.noaa.gov/api/datagetter?range=3&station=8454000&product=water_level&datum=STND&units=english&time_zone=lst&application=ccbaynav&format=json
