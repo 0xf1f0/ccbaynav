@@ -12,5 +12,30 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/waterlevel')
+def waterLevel():
+    return render_template("water_level.html")
+
+
+@app.route('/watertemp')
+def waterTemp():
+    return render_template("water_temperature.html")
+
+
+@app.route('/winddirection')
+def windDir():
+    return render_template("wind_direction.html")
+
+
+@app.route('/windgust')
+def windGust():
+    return render_template("wind_gust.html")
+
+
+@app.route('/windspeed')
+def windSpeed():
+    return render_template("wind_speed.html")
+
+
 if __name__ == '__main__':
     app.run(debug=False)

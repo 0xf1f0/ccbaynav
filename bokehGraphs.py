@@ -2,7 +2,8 @@
 import json
 from datetime import datetime as dt
 
-from bokeh.io import output_file, show
+from bokeh.embed import components
+from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter
 from bokeh.plotting import figure
 
@@ -21,11 +22,11 @@ def create_graph(variable):
     data_file.close()
     locations = {"lexington": "8775296", "port_aransas": "8775237", "aransas_pass": "8775241",
                  "bob_hall_pier": "8775870"}
-
+    # Add a hover tool
+    # hover = HoverTool(tooltips=[("(height,time)", "($x, $y{F}")], formatters={"time" : "datetime"})
     # create a new plot with a title and axis labels
     p = figure(plot_width=729, plot_height=485, title=variable, x_axis_label='Time',
                y_axis_label='Height (ft.)')
-
     for loc in locations:
         if loc not in var_data:
             print loc + ' does not have var: ' + variable
@@ -52,9 +53,14 @@ def create_graph(variable):
     # output to static HTML file
     output_file("templates/" + variable + ".html")
 
+
     # save the results
-    show(p)
+    # This opens the graphs in the default browser
+    # show(p)
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
+    script, div = components(p)
+    print(script)
+    print(div)
 
 
 # function to generate the graphs for each variable

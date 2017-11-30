@@ -156,52 +156,6 @@ h1 {
     flex-wrap: wrap;
 }
 
-.graph-item {
-    flex: 1;
-    margin: 0.5%;
-    flex-basis: calc(50% - (2 * 0.5%));
-}
-
-.graph-item:nth-child(1) {
-
-    background-color: green;
-    order: 1;
-}
-
-.graph-item:nth-child(2) {
-
-    background-color: beige;
-    order: 2;
-
-}
-
-.graph-item:nth-child(3) {
-
-    background-color: cyan;
-    order: 3;
-
-}
-
-.graph-item:nth-child(4) {
-
-    background-color: magenta;
-    order: 4;
-
-}
-
-.graph-item:nth-child(5) {
-
-    background-color: lavenderblush;
-    order: 5;
-
-}
-
-.graph-item:nth-child(6) {
-
-    background-color: deepskyblue;
-    order: 6;
-
-}
 
 /* Responsive layout for mobile browsers
    Orders the div(s) as a stack
