@@ -8,11 +8,9 @@ var initial_zoom = 11;                 //  The corresponding zoom of map center 
 var map;
 
 // Fetch current weather JSON data from static folder/api/filename
-var current_weather_json = "/static/api/current_weather.json";
 var forecast_base_url = "https://api.weather.gov/points/";
 var marine_traffic_json = "/static/api/marine_traffic.json";
-var fahrenheit = " °F";
-var percent = '%';
+var fahrenheit = "°F";
 
 
 //This function initializes the Google Maps
@@ -20,6 +18,8 @@ var percent = '%';
 function initMap() {
     var latlng = {lat: initial_lat, lng: initial_lng};
     var default_forecast_url = forecast_base_url + initial_lat + ',' + initial_lng + "/forecast";
+    var default_weather_url = forecast_base_url + initial_lat + ',' + initial_lng + "/forecast/hourly";
+
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: initial_zoom,
         center: latlng,
@@ -29,7 +29,7 @@ function initMap() {
     displayTime();
     displayStations();
     displayMarineTraffic();
-    getWeatherCurrent(current_weather_json);
+    getWeatherCurrent(default_weather_url);
     getWeatherForecast(default_forecast_url);
 }
 
@@ -50,6 +50,7 @@ function displayStations() {
     var marker;
     var infoWindowContent = [station_markers.length];
     var station_weather_forecast;
+    var station_weather_current;
     var position;
 
 
@@ -61,6 +62,8 @@ function displayStations() {
         //Get weather forecast for a base station
         station_weather_forecast = forecast_base_url + station_markers[i][1] +
             "," + station_markers[i][2] + "/forecast";
+        station_weather_current = forecast_base_url + station_markers[i][1] +
+            "," + station_markers[i][2] + "/forecast/hourly";
 
         // Info Window Content
         infoWindowContent[i] = '<div class="info_content">' + '<h6>' + "Station: " + station_markers[i][0] +
@@ -73,7 +76,7 @@ function displayStations() {
             title: station_markers[i][0]
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, i, station_weather_forecast) {
+        google.maps.event.addListener(marker, 'click', (function (marker, i, station_weather_forecast, station_weather_current) {
             return function () {
                 stationInfoWindow.setContent(infoWindowContent[i]);
                 stationInfoWindow.open(map, marker);
@@ -81,8 +84,12 @@ function displayStations() {
                 if ($('.forecast-item-info').empty() && $('.forecast-item-icon').empty()) {
                     getWeatherForecast(station_weather_forecast);
                 }
+
+                if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() && $('#current-condition-icon').empty()) {
+                    getWeatherCurrent(station_weather_current);
+                }
             }
-        })(marker, i, station_weather_forecast));
+        })(marker, i, station_weather_forecast, station_weather_current));
     }
 }
 
@@ -199,31 +206,34 @@ function getWeatherCurrent(url) {
         type: 'get',
         cache: true,
         success: function (data) {
+            console.log(url);
+            var json_obj = data["properties"];
+            var period = json_obj.periods;
+            var iconUrl = period[0].icon;
+            var wind_speed = period[0].windSpeed;
+            var wind_dir = period[0].windDirection;
+            var temp = period[0].temperature;
+            var desc = period[0].shortForecast;
+            var last_update = json_obj.updated;
+            var current_condition;
+            var icon;
 
-            // console.log(data);
-            document.getElementById("city").innerHTML = data["name"];
-            document.getElementById("humidity").innerHTML = "Humidity: " + data["main"].humidity + percent;
-            document.getElementById("temp").innerHTML = "Temp: " + Math.round(data["main"].temp) + fahrenheit;
-            document.getElementById("temp_min").innerHTML = "Low: " + Math.round(data["main"].temp_min) + fahrenheit;
-            document.getElementById("temp_max").innerHTML = "High: " + Math.round(data["main"].temp_max) + fahrenheit;
-            document.getElementById("description").innerHTML = data.weather[0].description;
+            console.log(iconUrl, wind_speed, wind_dir, temp, desc, last_update);
+            console.log(json_obj);
 
-            //Dynamically add an image and set its attribute
-            var icon = document.createElement('img');
-            var iconDesc = data.weather[0].description;
-            var iconName = data.weather[0].icon;
-            var altUrl = "http://openweathermap.org/img/w/";
-            var baseUrl = "/static/media/weathericons/";
-            var baseIcon = baseUrl + getWeatherIcon(iconName);
-            var altIcon = altUrl + getWeatherIcon(iconName);
+            //Dynamically add an icon and set its attribute
+            icon = document.createElement('img');
+            icon.src = iconUrl;
+            icon.alt = desc;
+            icon.style.width = "75%";
+            icon.style.height = "75%";
 
-            icon.id = "icon";
-            icon.src = baseIcon;
-            icon.alt = iconDesc;
-            icon.onerror = "this.onerror=null;this.src='" + altIcon + "';";
-            document.getElementById("current-weather").appendChild(icon);
-            icon.style.width = "50px";
-            icon.style.height = "50px";
+
+            // Display the icon and content
+            document.getElementById("current-condition-temp").innerHTML = "<p>" + temp + fahrenheit + "</p>";
+            document.getElementById("current-condition-info").innerHTML = "<p>" + desc + "<br>" +
+                wind_dir + " " + wind_speed + "</p>";
+            document.getElementById("current-condition-icon").appendChild(icon);
         }
     });
 
@@ -245,7 +255,7 @@ function getWeatherForecast(url) {
             var wind_speed;
             var wind_dir;
             var temp;
-            var header;
+            var time;
             var desc;
             var iconUrl;
             var content;
@@ -262,20 +272,20 @@ function getWeatherForecast(url) {
                     temp = period[i].temperature;
                     // console.log("High: " + temp)
                 }
-                header = period[i].name;
+                time = period[i].name;
                 desc = period[i].shortForecast;
                 wind_speed = period[i].windSpeed;
                 wind_dir = period[i].windDirection;
                 iconUrl = period[i].icon;
                 var forecast = document.getElementById("five-days-forecast");
-                content = header + "<br>" + temp + fahrenheit + "<br>" + desc;
+                content = "<p>" + time + "</p>" + "<p>" + temp + fahrenheit + "<br>" + desc + "</p>";
 
                 //Dynamically add an icon and set its attribute
                 icon = document.createElement('img');
                 icon.src = iconUrl;
                 icon.alt = "forecast-icon";
-                icon.style.width = "86px";
-                icon.style.height = "86px";
+                icon.style.width = "100%";
+                icon.style.height = "100%";
 
                 // Display the icon and content
                 forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = content;
@@ -292,68 +302,5 @@ function epochToDay(epoch_time) {
     return moment.unix(epoch_time).format(format);
 }
 
-//Get the icon url for a corresponding icon
-
-function getWeatherIcon(iconName) {
-    var iconFile = null;
-    var ext = ".png";
-    switch (iconName) {
-        case "01d":
-            iconFile = "01d";
-            break;
-        case "01n":
-            iconFile = "01n";
-            break;
-        case "02d":
-            iconFile = "02d";
-            break;
-        case "02n":
-            iconFile = "02n";
-            break;
-        case "03d":
-            iconFile = "03d";
-            break;
-        case "03n":
-            iconFile = "03n";
-            break;
-        case "04d":
-            iconFile = "04d";
-            break;
-        case "04n":
-            iconFile = "04n";
-            break;
-        case "09d":
-            iconFile = "09d";
-            break;
-        case "09n":
-            iconFile = "09n";
-            break;
-        case "10d":
-            iconFile = "10d";
-            break;
-        case "10n":
-            iconFile = "10n";
-            break;
-        case "11d":
-            iconFile = "11d";
-            break;
-        case "11n":
-            iconFile = "11n";
-            break;
-        case "13d":
-            iconFile = "13d";
-            break;
-        case "13n":
-            iconFile = "13n";
-            break;
-        case "50d":
-            iconFile = "50d";
-            break;
-        case "50n":
-            iconFile = "50n";
-            break;
-    }
-    return (iconFile + ext);
-}
 
 

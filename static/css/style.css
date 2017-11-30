@@ -8,7 +8,6 @@
 }
 
 body {
-    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     margin: 0.5%;
 }
 
@@ -35,7 +34,7 @@ h1 {
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 600px;
+    height: 750px;
 }
 
 .google-maps {
@@ -52,7 +51,6 @@ h1 {
 #current-weather {
     order: 1;
     flex: 2;
-    background-color: lightskyblue;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -60,33 +58,96 @@ h1 {
 }
 
 #date_time {
-    background-color: white;
     height: inherit;
-    font-size: 100%;
+    font-size: 125%;
+    text-align: center;
+    font-weight: bold;
+    flex: 1;
+    align-self: center;
 }
 
-.temp {
-    font-size: 100%;
+#current-condition {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex: 3;
+}
+
+#current-condition-icon {
+    order: 1;
+    flex: 1;
+    display: flex;
+}
+
+#current-condition-icon img {
+    margin: auto;
+}
+
+#current-condition-info {
+    order: 3;
+    flex: 1;
+    margin: auto;
+    align-items: center;
+}
+
+#current-condition-info p {
+    text-align: center;
+    font-size: medium;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+#current-condition-temp {
+    order: 2;
+    flex: 1;
+    margin: auto;
+}
+
+#current-condition-temp p {
+    font-size: 400%;
+    font-weight: bolder;
+    color: darkblue;
+    text-align: center;
 }
 
 #five-days-forecast {
-    background-color: powderblue;
     order: 2;
-    flex: 4;
+    flex: 5;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: powderblue;
 }
 
 .forecast-item {
     flex: 1;
     flex-basis: calc(50% - (2 * 2px));
     border: 2px solid white;
-    overflow: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 
+}
+
+.forecast-item-info {
+    flex: 3;
+    order: 2;
+
+    font-size: small;
+    margin: auto;
+    text-align: center;
+}
+
+.forecast-item-info p:nth-child(1) {
+    font-weight: bold;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
+.forecast-item-icon {
+    flex: 2;
+    order: 1;
 }
 
 .graphs {
@@ -208,241 +269,4 @@ h1 {
     .graphs > * {
         flex-basis: calc(100% / 2);
     }
-}
-
-/* TODO: Remove background colors on parent div(s) */
-/* TODO: Display 2 graphs in a row for landscape orientation(Max-width: 374px)*/
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    margin: 0.5%;
-}
-
-header {
-    min-height: 100px;
-    background-color: lavender;
-    margin: -0.5% 0.5% 0.5%;
-}
-
-h1 {
-    font-weight: normal;
-    text-align: center;
-    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
-    margin: 0 0.5%;
-
-}
-
-.map-weather {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    height: 650px;
-}
-
-.google-maps {
-    width: 70%;
-}
-
-.weather {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-#current-weather {
-    order: 1;
-    flex: 2;
-    background-color: lightskyblue;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    border-left: solid 2px white;
-}
-
-#date_time {
-    width: auto;
-    max-height: 20px;
-    font-size: small;
-}
-
-.temp {
-    font-size: medium;
-}
-
-#five-days-forecast {
-    background-color: powderblue;
-    order: 2;
-    flex: 6;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.forecast-item {
-    flex: 1;
-    flex-basis: calc(50% - (2 * 2px));
-    border: 2px solid white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.forecast-item-info {
-    flex: 3;
-    order: 2;
-    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    font-size: small;
-    overflow: hidden;
-}
-
-.forecast-item-icon {
-    flex: 2;
-    order: 1;
-}
-
-.graphs {
-    height: calc(250px * 6);
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.graph-item {
-    flex: 1;
-    margin: 0.5%;
-    flex-basis: calc(50% - (2 * 0.5%));
-}
-
-.graph-item:nth-child(1) {
-
-    background-color: green;
-    order: 1;
-}
-
-.graph-item:nth-child(2) {
-
-    background-color: beige;
-    order: 2;
-
-}
-
-.graph-item:nth-child(3) {
-
-    background-color: cyan;
-    order: 3;
-
-}
-
-.graph-item:nth-child(4) {
-
-    background-color: magenta;
-    order: 4;
-
-}
-
-.graph-item:nth-child(5) {
-
-    background-color: lavenderblush;
-    order: 5;
-
-}
-
-.graph-item:nth-child(6) {
-
-    background-color: deepskyblue;
-    order: 6;
-
-}
-
-/* Responsive layout for mobile browsers
-   Orders the div(s) as a stack
-*/
-
-@media screen and (max-width: 667px) {
-    .map-weather {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-
-    .google-maps {
-        order: 2;
-        width: inherit;
-        height: 50%;
-        margin-top: 5px;
-    }
-
-    .weather {
-        order: 1;
-        width: inherit;
-        height: 50%;
-    }
-
-    .graphs {
-        order: 3;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex-basis: calc(100% / 2);
-        max-height: 736px;
-    }
-
-}
-
-@media screen and (max-width: 420px) {
-
-    .map-weather {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-
-    .google-maps {
-        order: 2;
-        width: inherit;
-        height:50%;
-        margin-top: 5px;
-    }
-
-    .weather {
-        order: 1;
-        width: inherit;
-        height: 50%;
-    }
-
-    .graphs {
-        order: 3;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    .graphs > * {
-        flex-basis: calc(100% / 2);
-    }
-}
-
-
-/* ----------- Non-Retina Screens ----------- */
-@media screen
-and (min-device-width: 1200px)
-and (max-device-width: 1600px)
-and (-webkit-min-device-pixel-ratio: 1) {
-}
-
-/* ----------- Retina Screens ----------- */
-@media screen
-and (min-device-width: 1200px)
-and (max-device-width: 1600px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (min-resolution: 192dpi) {
 }
