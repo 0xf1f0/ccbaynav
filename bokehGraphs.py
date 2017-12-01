@@ -3,7 +3,6 @@ import json
 from datetime import datetime as dt
 
 from bokeh.embed import components
-from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter
 from bokeh.models.tools import HoverTool
 from bokeh.palettes import Spectral4
@@ -22,8 +21,6 @@ def create_graph(variable):
                  "bob_hall_pier": "black"}
     color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
                  bob_hall_pier=Spectral4[3])
-    # color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
-    #             bob_hall_pier=Spectral4[3])
 
     # create a new plot with a title and axis labels
     p = figure(plot_width=729, plot_height=485, title=variable, x_axis_label='Time',
@@ -56,8 +53,6 @@ def create_graph(variable):
         days=["%a, %r"]
     )
 
-    # output to static HTML file
-    output_file("templates/" + variable + ".html")
 
     # save the results
     # This opens the graphs in the default browser
@@ -66,7 +61,7 @@ def create_graph(variable):
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
     return p
     # generate the javascript code for the file
-    #script_generator(p, js_file="static/js/bokehGraphs.js")
+    # script_generator(p, js_file="static/js/bokehGraphs.js")
 
 
 # function to generate the graphs for each variable
@@ -78,24 +73,6 @@ def graph_generator():
     script, div_list = components(figure_list)
     # return render_template ("index.html", script=script, div=div_list)
     return script, div_list
-
-
-# function to write Bokeh graph javascript to file
-COUNTER = 0
-
-
-def script_generator(p, js_file):
-    script, div = components(p)
-    global COUNTER
-    if COUNTER == 0:
-        cmd = 'w'
-    else:
-        cmd = 'a'
-    with open(js_file, cmd) as f:
-        COUNTER += 1
-        f.write(script)
-        f.write(div)
-    f.close()
 
 
 graph_generator()
