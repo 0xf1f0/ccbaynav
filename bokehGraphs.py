@@ -3,7 +3,7 @@ import json
 from datetime import datetime as dt
 
 from bokeh.embed import components
-from bokeh.io import show, output_file
+from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter
 from bokeh.models.tools import HoverTool
 from bokeh.palettes import Spectral4
@@ -63,7 +63,7 @@ def create_graph(variable):
     # save the results
     # This opens the graphs in the default browser
 
-    show(p)
+    # show(p)
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
 
     # generate the javascript code for the file
