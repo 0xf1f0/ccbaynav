@@ -2,6 +2,46 @@ import json
 
 import requests
 
+from getAPIKey import search_key
+
+"""
+    Source: https://www.marinetraffic.com/en/ais-api-services/documentation
+    [PS06]	Vessel Positions in a Custom Area
+    Typical API call:
+        http://services.marinetraffic.com/api/exportvessels/v:8/YOUR-API-KEY/MINLAT:value/MAXLAT:value/
+        MINLON:value/MAXLON:value/timespan:#minutes/protocol:value
+
+"""
+
+
+def marine_traffic_request():
+    mt_json_file = 'static/api/marine_traffic.json'
+    api_key = search_key(api_name="marine")
+    min_lat = 27.6289
+    max_lat = 27.92295
+    min_lon = -97.52313
+    max_lon = -96.99029
+    protocol = "jsono"
+    msg_type = "extended"
+
+    # API call for : Vessel Positions in a custom area
+    marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) + "/MINLAT:" +
+                              str(min_lat) + "/MAXLAT:" + str(max_lat) + "/MINLON:" + str(min_lon) + "/MAXLON:" +
+                              str(max_lon) + "/msgtype:" + msg_type + "/protocol:" + protocol)
+
+    # API call for : Vessel Positions in a predefined area
+    # marine_traffic_api_url = ("http://services.marinetraffic.com/api/exportvessels/v:8/" + str(api_key) +
+    #                           "/msgtype:" + msg_type + "/protocol:" + protocol)
+
+    #   print marine_traffic_api_url
+
+    #   Call the API service for JSON data and store the response in a file
+    mt_data = api_data_request(api_url=marine_traffic_api_url, json_file=mt_json_file)
+    if mt_data is not None:
+        print "Code: 200"
+    else:
+        print "Code: 404"
+
 
 # function to capture data for a specified station from noaa
 def noaa_request_maker(loc_id, variable, file_name, data):
@@ -51,4 +91,24 @@ def get_noaa_data():
             json.dump(data[var], f, sort_keys=True)
 
 
+"""
+    This function returns JSON object for API service request
+    Check HTTP status code of api_request to be OK
+    Store response in a dictionary
+    Write the JSON object to file
+"""
+
+
+def api_data_request(api_url, json_file):
+    api_response = requests.get(api_url)
+    if api_response.status_code == 200:
+        try:
+            with open(json_file, 'w') as f:
+                f.write(api_response.content)
+        except IOError as e:
+            print e.message
+    return api_response.status_code
+
+
+# marine_traffic_request()
 get_noaa_data()

@@ -102,7 +102,7 @@ function displayMarineTraffic() {
         url: marine_traffic_json,
         dataType: 'json',
         type: 'get',
-        cache: false,
+        cache: true,
         success: function (data) {
 
             //Variables for storing marine traffic data
@@ -205,7 +205,7 @@ function getWeatherCurrent(url, station) {
         url: url,
         dataType: 'json',
         type: 'get',
-        cache: false,
+        cache: true,
         success: function (data) {
             console.log(url);
             var json_obj = data["properties"];
@@ -244,7 +244,7 @@ function getWeatherForecast(url) {
         url: url,
         dataType: 'json',
         type: 'get',
-        cache: false,
+        cache: true,
         success: function (data) {
             var json_obj = data["properties"];
             var period = json_obj.periods;
