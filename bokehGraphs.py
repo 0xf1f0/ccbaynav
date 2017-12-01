@@ -5,6 +5,7 @@ from datetime import datetime as dt
 from bokeh.embed import components
 from bokeh.io import show, output_file
 from bokeh.models import DatetimeTickFormatter
+from bokeh.models.tools import HoverTool
 from bokeh.palettes import Spectral4
 from bokeh.plotting import figure
 
@@ -25,8 +26,6 @@ def create_graph(variable):
                  "bob_hall_pier": "8775870"}
     color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
                  bob_hall_pier=Spectral4[3])
-    # Add a hover tool
-    # hover = HoverTool(tooltips=[("(height,time)", "($x, $y{F}")], formatters={"time" : "datetime"})
     # create a new plot with a title and axis labels
     p = figure(plot_width=729, plot_height=485, title=variable, x_axis_label='Time',
                y_axis_label='Height (ft.)')
@@ -46,6 +45,11 @@ def create_graph(variable):
 
         # add a line renderer with legend and line thickness
         p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
+
+    # Add a hover tool
+    hover = HoverTool(tooltips=[("Time", "@x{%c}"), ("Height(ft)", "@y")],
+                      formatters={"x": "datetime"}, mode="mouse")
+    p.add_tools(hover)
 
     p.xaxis.formatter = DatetimeTickFormatter(
         minutes=["%a, %r"],

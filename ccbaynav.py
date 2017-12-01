@@ -37,5 +37,10 @@ def windSpeed():
     return render_template("wind_speed.html")
 
 
+@app.route('/airtemp')
+def airTemp():
+    return render_template("air_temperature.html")
+
+
 if __name__ == '__main__':
     app.run(debug=False)
