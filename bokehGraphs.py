@@ -5,12 +5,9 @@ from datetime import datetime as dt
 from bokeh.embed import components
 from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter
-# from bokeh.palettes import Spectral4
+from bokeh.models.tools import HoverTool
+from bokeh.palettes import Spectral4
 from bokeh.plotting import figure
-
-
-# noaaData = NOAA_request.get_noaa_data()
-# print(noaaData)
 
 
 def to_time(t):
@@ -23,11 +20,10 @@ def create_graph(variable):
     data_file.close()
     locations = {"lexington": "blue", "port_aransas": "red", "aransas_pass": "green",
                  "bob_hall_pier": "black"}
+    color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
+                 bob_hall_pier=Spectral4[3])
     # color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
     #             bob_hall_pier=Spectral4[3])
-
-    # Add a hover tool
-    # hover = HoverTool(tooltips=[("(height,time)", "($x, $y{F}")], formatters={"time" : "datetime"})
 
     # create a new plot with a title and axis labels
     p = figure(plot_width=729, plot_height=485, title=variable, x_axis_label='Time',
@@ -47,8 +43,12 @@ def create_graph(variable):
             x.append(dt.strptime(z, '%Y-%m-%d %H:%M'))
 
         # add a line renderer with legend and line thickness
-        # p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
-        p.line(x=x, y=y, legend=loc, line_width=2, color=locations[loc])
+        p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
+
+    # Add a hover tool
+    hover = HoverTool(tooltips=[("Time", "@x{%c}"), ("Height(ft)", "@y")],
+                      formatters={"x": "datetime"}, mode="mouse")
+    p.add_tools(hover)
 
     p.xaxis.formatter = DatetimeTickFormatter(
         minutes=["%a, %r"],
@@ -58,6 +58,9 @@ def create_graph(variable):
 
     # output to static HTML file
     output_file("templates/" + variable + ".html")
+
+    # save the results
+    # This opens the graphs in the default browser
 
     # show(p)
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")

@@ -29,7 +29,7 @@ function initMap() {
     displayTime();
     displayStations();
     displayMarineTraffic();
-    getWeatherCurrent(default_weather_url);
+    getWeatherCurrent(default_weather_url, "Corpus Christi Bay");
     getWeatherForecast(default_forecast_url);
 }
 
@@ -76,7 +76,7 @@ function displayStations() {
             title: station_markers[i][0]
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, i, station_weather_forecast, station_weather_current) {
+        google.maps.event.addListener(marker, 'click', (function (marker, i, station_weather_forecast, station_weather_current, station_markers) {
             return function () {
                 stationInfoWindow.setContent(infoWindowContent[i]);
                 stationInfoWindow.open(map, marker);
@@ -85,11 +85,12 @@ function displayStations() {
                     getWeatherForecast(station_weather_forecast);
                 }
 
-                if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() && $('#current-condition-icon').empty()) {
-                    getWeatherCurrent(station_weather_current);
+                if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() &&
+                    $('#current-condition-icon').empty() && $('#current-condition-station').empty()) {
+                    getWeatherCurrent(station_weather_current, station_markers[i][0]);
                 }
             }
-        })(marker, i, station_weather_forecast, station_weather_current));
+        })(marker, i, station_weather_forecast, station_weather_current, station_markers));
     }
 }
 
@@ -199,7 +200,7 @@ function displayTime() {
     }, 1000);
 }
 
-function getWeatherCurrent(url) {
+function getWeatherCurrent(url, station) {
     $.ajax({
         url: url,
         dataType: 'json',
@@ -215,12 +216,9 @@ function getWeatherCurrent(url) {
             var temp = period[0].temperature;
             var desc = period[0].shortForecast;
             var last_update = json_obj.updated;
-            var current_condition;
             var icon;
 
-            console.log(iconUrl, wind_speed, wind_dir, temp, desc, last_update);
-            console.log(json_obj);
-
+            console.log(station);
             //Dynamically add an icon and set its attribute
             icon = document.createElement('img');
             icon.src = iconUrl;
@@ -231,8 +229,8 @@ function getWeatherCurrent(url) {
 
             // Display the icon and content
             document.getElementById("current-condition-temp").innerHTML = "<p>" + temp + fahrenheit + "</p>";
-            document.getElementById("current-condition-info").innerHTML = "<p>" + desc + "<br>" +
-                wind_dir + " " + wind_speed + "</p>";
+            document.getElementById("current-condition-info").innerHTML = "<p>" + station + "<br>" + desc + "<br>" +
+                wind_dir + " " + wind_speed;
             document.getElementById("current-condition-icon").appendChild(icon);
         }
     });
