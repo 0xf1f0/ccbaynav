@@ -2,6 +2,8 @@
 # TODO: Create a 404 Page
 from flask import Flask, render_template
 
+from bokehGraphs import graph_generator
+
 app = Flask(__name__)
 
 
@@ -9,7 +11,38 @@ app = Flask(__name__)
 def index():
     #   Render index.html as the default page
     #   See index.html in ../templates/
-    return render_template("index.html")
+    script, div_list = graph_generator()
+    return render_template("index.html", script=script, div=div_list)
+
+
+@app.route('/waterlevel')
+def waterLevel():
+    return render_template("water_level.html")
+
+
+@app.route('/watertemp')
+def waterTemp():
+    return render_template("water_temperature.html")
+
+
+@app.route('/winddirection')
+def windDir():
+    return render_template("wind_direction.html")
+
+
+@app.route('/windgust')
+def windGust():
+    return render_template("wind_gust.html")
+
+
+@app.route('/windspeed')
+def windSpeed():
+    return render_template("wind_speed.html")
+
+
+@app.route('/airtemp')
+def airTemp():
+    return render_template("air_temperature.html")
 
 
 if __name__ == '__main__':

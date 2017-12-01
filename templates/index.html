@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flexboxgrid.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -23,12 +24,11 @@
         <div class="weather">
             <div id="current-weather">
                 <div id="date_time"></div>
-                <div id="city"></div>
-                <div id="temp"></div>
-                <div id="temp_min"></div>
-                <div id="temp_max"></div>
-                <div id="humidity"></div>
-                <div id="description"></div>
+                <div id="current-condition">
+                    <div id="current-condition-icon"></div>
+                    <div id="current-condition-temp"></div>
+                    <div id="current-condition-info"></div>
+                </div>
             </div>
             <div id="five-days-forecast">
                 <div class="forecast-item">
@@ -74,34 +74,41 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="graphs">
-        <div id="water_level_graph" class="graph-item">
-            <p>Graph 1</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="c045afff-71b0-44e0-a260-01fa2efc214a"></div>
         </div>
-        <div id="water_temp_graph" class="graph-item">
-            <p>Graph 2</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="23aac014-742c-4a3f-8966-4be9c51993f3"></div>
         </div>
-        <div id="wind_speed_graph" class="graph-item">
-            <p>Graph 3</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="96b282a1-ee8a-49b5-8430-9de44db0b100"></div>
         </div>
-        <div id="wind_gust_graph" class="graph-item">
-            <p>Graph 4</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="1e391206-3982-4075-8181-d207d59a5fd5"></div>
         </div>
-        <div id="air_temp_graph" class="graph-item">
-            <p>Graph 5</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="2ad5fad0-e8dc-4b1a-8bb3-1da546605810"></div>
         </div>
-        <div id="currents_graph" class="graph-item">
-            <p>Graph 6</p>
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="55e5b554-9ae4-49c2-b235-81576522eb72"></div>
         </div>
     </div>
+    -->
+    {{ script|safe }}
+    {{ div|safe }}
+
 </div>
+
 <!-- Imported Javascript files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js"></script>
 <script src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment.js')}}"></script>
 <script src="{{url_for('static', filename='js/moment-timezone-with-data-2012-2022.js')}}"></script>
-<script src="{{url_for('static', filename='js/script.js')}}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="{{url_for('static', filename='js/bokehGraphs.js')}}"></script>
 
 <!-- Google Maps API call -->
 <script async defer
@@ -110,3 +117,6 @@
 
 </body>
 </html>
+
+
+
