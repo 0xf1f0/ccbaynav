@@ -2,6 +2,8 @@
 # TODO: Create a 404 Page
 from flask import Flask, render_template
 
+from bokehGraphs import graph_generator
+
 app = Flask(__name__)
 
 
@@ -9,7 +11,8 @@ app = Flask(__name__)
 def index():
     #   Render index.html as the default page
     #   See index.html in ../templates/
-    return render_template("index.html")
+    script, div_list = graph_generator()
+    return render_template("index.html", script=script, div=div_list)
 
 
 @app.route('/waterlevel')
