@@ -55,27 +55,23 @@ def create_graph(variable):
 
 
     # save the results
-    # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
-
     # This opens the graphs in the default browser
-    # show(p)
 
+    # show(p)
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
     return p
     # generate the javascript code for the file
     # script_generator(p, js_file="static/js/bokehGraphs.js")
 
-    return p
 
 # function to generate the graphs for each variable
 def graph_generator():
-    # TODO: Add a different way to visualize the wind direction in a graph or something later
-    # var_list = ['wind_gust', 'wind_direction', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
-    var_list = ['wind_gust', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
+    var_list = ['wind_gust', 'wind_direction', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
     figure_list = []
     for var in var_list:
         figure_list.append(create_graph(var))
     script, div_list = components(figure_list)
+    # return render_template ("index.html", script=script, div=div_list)
     return script, div_list
 
 
