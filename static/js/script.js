@@ -86,7 +86,7 @@ function displayStations() {
                 // console.log(station_weather_forecast, station_weather_current);
 
                 if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() &&
-                    $('#current-condition-icon').empty() && $('#current-condition-station').empty()) {
+                    $('#current-condition-icon').empty()) {
                     getWeatherCurrent(station_weather_current, station_markers[i][0]);
                 }
 
