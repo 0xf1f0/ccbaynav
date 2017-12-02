@@ -58,12 +58,14 @@ h1 {
 }
 
 #date_time {
-    height: inherit;
-    font-size: 125%;
-    text-align: center;
-    font-weight: bold;
     flex: 1;
-    align-self: center;
+    margin: auto;
+    align-content: center;
+}
+
+#date_time p {
+    font-size: 125%;
+    font-weight: bold;
 }
 
 #current-condition {
@@ -71,7 +73,8 @@ h1 {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    flex: 3;
+    flex: 4;
+    overflow-y: auto;
 }
 
 #current-condition-icon {
@@ -118,6 +121,7 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
     background-color: powderblue;
+    overflow-y: auto;
 }
 
 .forecast-item {
@@ -128,13 +132,11 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-
 }
 
 .forecast-item-info {
-    flex: 3;
+    flex: 5;
     order: 2;
-
     font-size: small;
     margin: auto;
     text-align: center;
@@ -146,16 +148,22 @@ h1 {
 }
 
 .forecast-item-icon {
-    flex: 2;
+    flex: 4;
     order: 1;
+    margin: auto;
 }
 
-.bk-root{
+#bokeh-graph {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
+.bk-root {
+    max-width: calc(1489px / 2);
+    max-height: 500px;
+}
 
 /* Responsive layout for mobile browsers
    Orders the div(s) as a stack
@@ -184,7 +192,7 @@ h1 {
     .graphs {
         order: 3;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         flex-basis: calc(100% / 2);
         max-height: 736px;
     }

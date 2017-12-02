@@ -1,4 +1,5 @@
 # import NOAA_request
+# -*- coding: utf-8 -*-
 import json
 from datetime import datetime as dt
 
@@ -19,15 +20,15 @@ def create_graph(variable):
     data_file.close()
     color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
                  bob_hall_pier=Spectral4[3])
-    properties = {'wind_gust':['Wind Gust', 'Meters per Second'],
-                  'wind_speed':['Wind Speed', 'Meters per Second'],
-                  'water_level':['Water Level', 'Height (ft)'],
-                  'air_temperature':['Air Temperature', 'Degrees (F)'],
-                  'water_temperature':['Air Temperature', 'Degrees (F)']}
+    properties = {'wind_gust':['Wind Gust', 'Time', 'Meters per Second'],
+                  'wind_speed':['Wind Speed', 'Time', 'Meters per Second'],
+                  'water_level':['Water Level', 'Time', 'Height(ft)'],
+                  'air_temperature':['Air Temperature', 'Time', 'Temperature(°F)'],
+                  'water_temperature':['Water Temperature', 'Time', 'Temperature(°F)']}
 
     # create a new plot with a title and axis labels
-    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label='Time',
-               y_axis_label=properties[variable][1])
+    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label=properties[variable][1],
+               y_axis_label=properties[variable][2])
     for loc in var_data:
         if loc not in var_data:
             print loc + ' does not have var: ' + variable
@@ -40,13 +41,13 @@ def create_graph(variable):
         for z in sorted(var_data[loc], key=to_time):
             # print z, var_data[loc][z]
             y.append(var_data[loc][z])
-            x.append(dt.strptime(z, '%Y-%m-%d %H:%M'))
+            x.append(to_time(z))
 
         # add a line renderer with legend and line thickness
         p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
 
     # Add a hover tool
-    hover = HoverTool(tooltips=[(properties[variable][0], "@x{%c}"), (properties[variable][1], "@y")],
+    hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")],
                       formatters={"x": "datetime"}, mode="mouse")
     p.add_tools(hover)
 

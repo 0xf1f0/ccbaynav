@@ -145,7 +145,7 @@ function displayMarineTraffic() {
 
                 shipPosition = new google.maps.LatLng(shipLat, shipLon);
                 shipInfo[i] = '<div class="ship_info">' +
-                    '<h6>' + shipName + '</h6>' +
+                    '<h6 style="font-weight: bold; color: red; font-size: medium">' + shipName + '</h6>' +
                     '<h6>' + "Flag: " + shipFlag + '</h6>' +
                     '<h6>' + "Call Sign: " + shipCallsign + '</h6>' +
                     '<h6>' + "Speed: " + shipSpeed + '</h6>' +
@@ -197,7 +197,8 @@ function displayTime() {
 
     function updateClock(date_time) {
         date = moment(new Date());
-        date_time.innerHTML = date.tz(timezone).format(format);
+        date_time.innerHTML = "<p>" + date.tz(timezone).format(format) + "</p>";
+
     }
 
     setInterval(function () {
