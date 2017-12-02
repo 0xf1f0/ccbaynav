@@ -2,9 +2,21 @@
  * Initialize and display Google maps
  */
 
-var initial_lat = 27.75875;            //  The corresponding latitude of map center at initialization.
-var initial_lng = -97.245233;          //  The corresponding longitude of map center at initialization.
-var initial_zoom = 11;                 //  The corresponding zoom of map center at initialization.
+//TODO: Remove Houston Central station markers
+//Data Stations markers as a 2-Dimensional Array
+var station_markers = [
+    ['Aransas Pass', 27.9033, -97.1478],
+    ['Port Aransas', 27.836, -97.0682],
+    ['USS Lexington', 27.82, -97.4],
+    ['Bob Hall Pier', 27.5816, -97.2202],
+    ['Houston Central', 29.64, -95.28],
+    ['Test point', 39.0693, -94.6716]
+];
+
+
+var initial_lat = 27.75875;             //  The corresponding latitude of map center at initialization.
+var initial_lng = -97.245233;           //  The corresponding longitude of map center at initialization.
+var zoom = 11;                          //  The corresponding zoom of map center at initialization.
 var map;
 
 // Fetch current weather JSON data from static folder/api/filename
@@ -16,12 +28,13 @@ var fahrenheit = "°F";
 //This function initializes the Google Maps
 
 function initMap() {
+    var default_weather = ['Corpus Christi Bay', 27.7543, -97.1729];
     var latlng = {lat: initial_lat, lng: initial_lng};
-    var default_forecast_url = forecast_base_url + initial_lat + ',' + initial_lng + "/forecast";
-    var default_weather_url = forecast_base_url + initial_lat + ',' + initial_lng + "/forecast/hourly";
+    var default_forecast_url = forecast_base_url + default_weather[1] + ',' + default_weather[2] + "/forecast";
+    var default_weather_url = forecast_base_url + default_weather[1] + ',' + default_weather[2] + "/forecast/hourly";
 
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: initial_zoom,
+        zoom: zoom,
         center: latlng,
         mapTypeId: 'roadmap'
     });
@@ -29,21 +42,11 @@ function initMap() {
     displayTime();
     displayStations();
     displayMarineTraffic();
-    getWeatherCurrent(default_weather_url, "Corpus Christi Bay");
+    getWeatherCurrent(default_weather_url, default_weather[0]);
     getWeatherForecast(default_forecast_url);
 }
 
 function displayStations() {
-
-    //TODO: Remove Houston Central station markers
-    //Data Stations markers as a 2-Dimensional Array
-    var station_markers = [['Aransas Pass', 27.8366, -97.0391],
-        ['Port Aransas', 27.8397, -97.0725],
-        ['USS Lexington', 27.8149, -97.3892],
-        ['Bob Hall Pier', 27.5800, -97.2167],
-        ['Houston Central', 29.64, -95.28]
-    ];
-
 
     // Display station markers on a map
     var stationInfoWindow = new google.maps.InfoWindow();
@@ -80,15 +83,17 @@ function displayStations() {
             return function () {
                 stationInfoWindow.setContent(infoWindowContent[i]);
                 stationInfoWindow.open(map, marker);
-                // console.log(station_weather_forecast);
-                if ($('.forecast-item-info').empty() && $('.forecast-item-icon').empty()) {
-                    getWeatherForecast(station_weather_forecast);
-                }
+                // console.log(station_weather_forecast, station_weather_current);
 
                 if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() &&
                     $('#current-condition-icon').empty() && $('#current-condition-station').empty()) {
                     getWeatherCurrent(station_weather_current, station_markers[i][0]);
                 }
+
+                if ($('.forecast-item-info').empty() && $('.forecast-item-icon').empty()) {
+                    getWeatherForecast(station_weather_forecast);
+                }
+
             }
         })(marker, i, station_weather_forecast, station_weather_current, station_markers));
     }
@@ -207,7 +212,6 @@ function getWeatherCurrent(url, station) {
         type: 'get',
         cache: true,
         success: function (data) {
-            console.log(url);
             var json_obj = data["properties"];
             var period = json_obj.periods;
             var iconUrl = period[0].icon;
@@ -217,8 +221,7 @@ function getWeatherCurrent(url, station) {
             var desc = period[0].shortForecast;
             var last_update = json_obj.updated;
             var icon;
-
-            console.log(station);
+            console.log("Station: " + station);
             //Dynamically add an icon and set its attribute
             icon = document.createElement('img');
             icon.src = iconUrl;
@@ -261,7 +264,7 @@ function getWeatherForecast(url) {
             // console.log("Calling: " + url, len);
             // Get the first ten (Five days) forecast
             for (var i = 0; i < len - 4; i++) {
-                // console.log(period[i].name)
+                // console.log(period[i].name);
                 if (period[i].name.toLowerCase().includes("night")) {
                     temp = period[i].temperature;
                     // console.log("Low: " + temp)

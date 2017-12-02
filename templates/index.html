@@ -7,10 +7,12 @@
 
     <!-- Imported CSS files -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon/favicon.ico') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
@@ -74,16 +76,13 @@
             </div>
         </div>
     </div>
-
-
-    <!-- These script and divs come from ccbaynav.py, the div for each graph is separate-->
-    {{ script|safe }}
-    {{ div|safe }}
-    {{ div1|safe }}
-    {{ div2|safe }}
-    {{ div3|safe }}
-    {{ div4|safe }}
-
+     <!-- These script and divs come from ccbaynav.py, the div for each graph is separate-->
+        {{ script|safe }}
+        {{ div|safe }}
+        {{ div1|safe }}
+        {{ div2|safe }}
+        {{ div3|safe }}
+        {{ div4|safe }}
 </div>
 
 <!-- Imported Javascript files -->
@@ -91,7 +90,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{url_for('static', filename='js/script.js')}}"></script>
 
 <!-- Google Maps API call -->

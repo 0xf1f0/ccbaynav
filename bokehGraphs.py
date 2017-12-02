@@ -53,19 +53,16 @@ def create_graph(variable):
         days=["%a, %r"]
     )
 
-
     # save the results
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
 
     # This opens the graphs in the default browser
-    # show(p)
 
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
     return p
     # generate the javascript code for the file
     # script_generator(p, js_file="static/js/bokehGraphs.js")
 
-    return p
 
 # function to generate the graphs for each variable
 def graph_generator():
