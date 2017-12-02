@@ -17,15 +17,18 @@ def create_graph(variable):
     data_file = open("static/api/" + variable + ".json", "r")
     var_data = json.load(data_file)
     data_file.close()
-    locations = {"lexington": "blue", "port_aransas": "red", "aransas_pass": "green",
-                 "bob_hall_pier": "black"}
     color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
                  bob_hall_pier=Spectral4[3])
+    properties = {'wind_gust':['Wind Gust', 'Meters per Second'],
+                  'wind_speed':['Wind Speed', 'Meters per Second'],
+                  'water_level':['Water Level', 'Height (ft)'],
+                  'air_temperature':['Air Temperature', 'Degrees (F)'],
+                  'water_temperature':['Air Temperature', 'Degrees (F)']}
 
     # create a new plot with a title and axis labels
-    p = figure(plot_width=729, plot_height=485, title=variable, x_axis_label='Time',
-               y_axis_label='Height (ft.)')
-    for loc in locations:
+    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label='Time',
+               y_axis_label=properties[variable][1])
+    for loc in var_data:
         if loc not in var_data:
             print loc + ' does not have var: ' + variable
             continue
@@ -43,7 +46,7 @@ def create_graph(variable):
         p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
 
     # Add a hover tool
-    hover = HoverTool(tooltips=[("Time", "@x{%c}"), ("Height(ft)", "@y")],
+    hover = HoverTool(tooltips=[(properties[variable][0], "@x{%c}"), (properties[variable][1], "@y")],
                       formatters={"x": "datetime"}, mode="mouse")
     p.add_tools(hover)
 
