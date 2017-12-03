@@ -113,7 +113,6 @@ function displayMarineTraffic() {
             //Variables for storing marine traffic data
             var shipName;
             var shipTypeName;
-            var shipMmsi;
             var shipLat;
             var shipLon;
             var shipSpeed;
@@ -132,7 +131,6 @@ function displayMarineTraffic() {
             for (var i = 0; i < data.length; i++) {
                 shipName = data[i].SHIPNAME;
                 shipTypeName = data[i].TYPE_NAME;
-                shipMmsi = data[i].MMSI;
                 shipLat = data[i].LAT;
                 shipLon = data[i].LON;
                 shipSpeed = data[i].SPEED + " Knot(s)";
@@ -144,14 +142,35 @@ function displayMarineTraffic() {
                 // console.log(shipName, typeName, lat, lon, callSign, flag, destination, eta);
 
                 shipPosition = new google.maps.LatLng(shipLat, shipLon);
-                shipInfo[i] = '<div class="ship_info">' +
-                    '<h6 style="font-weight: bold; color: red; font-size: medium">' + shipName + '</h6>' +
-                    '<h6>' + "Flag: " + shipFlag + '</h6>' +
-                    '<h6>' + "Call Sign: " + shipCallsign + '</h6>' +
-                    '<h6>' + "Speed: " + shipSpeed + '</h6>' +
-                    '<h6>' + "Destination: " + shipDestination + '</h6>' +
-                    '<h6>' + "ETA: " + shipEta + '</h6>' +
-                    '</div>';
+                shipInfo[i] = '<div class="ship-info">' +
+                    '<table class="ship-info-table">' +
+                    '<tr>' +
+                    '<th class="ship-info-table-th" colspan="2">' + shipName + '</th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td class="ship-info-table-property">Type:</td>' +
+                    '<td class="ship-info-table-data">' + shipTypeName + '</td>' +
+                    '</tr>' +
+                    '<tr><td class="ship-info-table-property">Flag:</td>' +
+                    '<td class="ship-info-table-data">' + shipFlag + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td class="ship-info-table-property">Sign:</td>' +
+                    '<td class="ship-info-table-data">' + shipCallsign + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td class="ship-info-table-property">Speed:</td>' +
+                    '<td class="ship-info-table-data">' + shipSpeed + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td class="ship-info-table-property">DST:</td>' +
+                    '<td class="ship-info-table-data">' + shipDestination + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td class="ship-info-table-property">ETA:</td>' +
+                    '<td class="ship-info-table-data">' + shipEta + '</td>' +
+                    '</tr>' +
+                    '</table>';
 
                 // console.log(shipInfo[i]);
 
