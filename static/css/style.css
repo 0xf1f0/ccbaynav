@@ -193,8 +193,8 @@ h1 {
 
     #map {
         order: 2;
-        max-width: 667px;
-        max-height: 500px;
+        max-width: inherit;
+        max-height: inherit;
         margin-top: 5px;
     }
 
@@ -214,18 +214,18 @@ h1 {
 
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-device-width: 420px) {
 
     .map-weather {
         display: flex;
         flex-direction: column;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
 
     #map {
         order: 2;
-        max-width: inherit;
-        max-height: 400px;
+        width: auto;
+        height: 580px;
         margin-top: 5px;
     }
 
@@ -237,10 +237,32 @@ h1 {
 
     #bokeh-graph {
         order: 3;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex-basis: calc(100% / 2);
-        max-height: 420px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        max-height: 736px;
+        flex-basis: calc(50% - (2 * 0.5%));
+        flex: 1;
+    }
+
+    .bk-root:nth-child(1) {
+        order: 1;
+        max-width: fit-content;
+    }
+
+    .bk-root:nth-child(2) {
+        order: 2;
+    }
+
+    .bk-root:nth-child(3) {
+        order: 3;
+    }
+
+    .bk-root:nth-child(4) {
+        order: 4;
+    }
+
+    .bk-root:nth-child(5) {
+        order: 5;
     }
 
 }

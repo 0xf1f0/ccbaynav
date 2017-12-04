@@ -50,6 +50,8 @@ def create_graph(variable):
     hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")],
                       formatters={"x": "datetime"}, mode="mouse")
     p.add_tools(hover)
+    p.legend.click_policy = "hide"
+    p.title.align = "center"
 
     p.xaxis.formatter = DatetimeTickFormatter(
         minutes=["%a, %r"],
