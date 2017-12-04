@@ -4,6 +4,7 @@ import json
 from datetime import datetime as dt
 
 from bokeh.embed import components
+from bokeh.models import BoxAnnotation
 from bokeh.models import DatetimeTickFormatter
 from bokeh.models.tools import HoverTool
 from bokeh.palettes import Spectral4
@@ -27,8 +28,9 @@ def create_graph(variable):
                   'water_temperature':['Water Temperature', 'Time', 'Temperature(°F)']}
 
     # create a new plot with a title and axis labels
-    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label=properties[variable][1],
-               y_axis_label=properties[variable][2])
+    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label=properties[variable][1], y_axis_label=properties[variable][2])
+    dayN = dt.now()
+
     for loc in var_data:
         if loc not in var_data:
             print loc + ' does not have var: ' + variable
@@ -37,28 +39,41 @@ def create_graph(variable):
         # prepare some data
         y = []
         x = []
+        hoursM = 0
+        hoursN = 0
+        Current = 0
 
         for z in sorted(var_data[loc], key=to_time):
             # print z, var_data[loc][z]
             y.append(var_data[loc][z])
             x.append(to_time(z))
-
+            hour = dt.strptime(z, '%Y-%m-%d %H:%M').hour
+            minute = dt.strptime(z, '%Y-%m-%d %H:%M').minute
+            second = dt.strptime(z, '%Y-%m-%d %H:%M').second
+            dayM = dt.strptime(z, '%Y-%m-%d %H:%M').day
+            if hour == 6 :
+                if minute == 00:
+                    if second == 00:
+                        hoursM = dt.strptime(z, '%Y-%m-%d %H:%M')
+            elif dayN != dayM:
+                if hour == 19:
+                    if minute == 00:
+                        if second == 00:
+                            hoursN = dt.strptime(z, '%Y-%m-%d %H:%M')
         # add a line renderer with legend and line thickness
         p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
 
     # Add a hover tool
-    hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")],
-                      formatters={"x": "datetime"}, mode="mouse")
+    hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")], formatters={"x": "datetime"}, mode="mouse")
     p.add_tools(hover)
-    p.legend.click_policy = "hide"
-    p.title.align = "center"
 
     p.xaxis.formatter = DatetimeTickFormatter(
         minutes=["%a, %r"],
         hours=["%a, %r"],
         days=["%a, %r"]
     )
-
+    box = BoxAnnotation(left=hoursN, right=hoursM, fill_color='gray', fill_alpha=0.5)
+    p.add_layout(box)
     # save the results
     # save(p, filename="waterLvlGraph.html", title="Water Level Graph")
 
