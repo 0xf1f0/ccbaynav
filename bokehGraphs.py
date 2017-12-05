@@ -20,14 +20,14 @@ def create_graph(variable):
     data_file.close()
     color = dict(lexington=Spectral4[0], port_aransas=Spectral4[1], aransas_pass=Spectral4[2],
                  bob_hall_pier=Spectral4[3])
-    properties = {'wind_gust':['Wind Gust', 'Time', 'Meters per Second'],
-                  'wind_speed':['Wind Speed', 'Time', 'Meters per Second'],
-                  'water_level':['Water Level', 'Time', 'Height(ft)'],
-                  'air_temperature':['Air Temperature', 'Time', 'Temperature(°F)'],
-                  'water_temperature':['Water Temperature', 'Time', 'Temperature(°F)']}
+    properties = {'wind_gust': ['Wind Gust', 'Time', 'Meters per Second'],
+                  'wind_speed': ['Wind Speed', 'Time', 'Meters per Second'],
+                  'water_level': ['Water Level', 'Time', 'Height(ft)'],
+                  'air_temperature': ['Air Temperature', 'Time', 'Temperature(°F)'],
+                  'water_temperature': ['Water Temperature', 'Time', 'Temperature(°F)']}
 
     # create a new plot with a title and axis labels
-    p = figure(plot_width=729, plot_height=485, title=properties[variable][0], x_axis_label=properties[variable][1],
+    p = figure(plot_width=650, plot_height=600, title=properties[variable][0], x_axis_label=properties[variable][1],
                y_axis_label=properties[variable][2])
     for loc in var_data:
         if loc not in var_data:
@@ -48,7 +48,7 @@ def create_graph(variable):
 
     # Add a hover tool
     hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")],
-                      formatters={"x": "datetime"}, mode="mouse")
+                      formatters={"x": "datetime"})
     p.add_tools(hover)
     p.legend.click_policy = "hide"
     p.title.align = "center"

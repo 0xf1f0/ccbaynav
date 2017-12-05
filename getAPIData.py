@@ -1,4 +1,5 @@
 import json
+import shutil
 
 import requests
 
@@ -87,8 +88,12 @@ def get_noaa_data():
 
     # loop through data array and save noaa data with a separate file for each variable
     for var in end_var_list:
-        with open('static/api/' + var + '.json', 'w') as f:
+        with open('static/api/prog_' + var + '.json', 'w') as f:
             json.dump(data[var], f, sort_keys=True)
+
+        # TODO - os.rename does not work on Windows delete one of these
+        # os.rename('static/api/prog_' + var + '.json', 'static/api/' + var + '.json')
+        shutil.move('static/api/prog_' + var + '.json', 'static/api/' + var + '.json')
 
 
 """
@@ -111,4 +116,4 @@ def api_data_request(api_url, json_file):
 
 
 # marine_traffic_request()
-get_noaa_data()
+# get_noaa_data()

@@ -11,6 +11,58 @@ body {
     margin: 0.5%;
 }
 
+/* Navigation Bar */
+
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: white;
+}
+
+#custom-bootstrap-menu.navbar-default {
+    font-size: 18px;
+    background-color: rgba(148, 157, 194, 1);
+    border-width: 2px;
+    border-radius: 4px;
+    margin: 0.5%;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 194, 194, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a:focus {
+    color: rgba(51, 51, 51, 1);
+    background-color: rgba(247, 247, 247, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a,
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a:focus {
+    color: rgba(0, 194, 194, 1);
+    background-color: rgba(231, 231, 231, 1);
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ddd;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ddd;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #949dc2;
+}
+
+/* End of Nav Bar */
+
 header {
     min-height: 100px;
     background-color: lavender;
@@ -135,7 +187,7 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: powderblue;
+    background-color: rgba(0, 194, 194, 1);
     overflow-y: auto;
 }
 
@@ -172,97 +224,21 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 10px;
+    margin-top: 50px;
+    align-items: center;
 }
 
 .bk-root {
-    max-width: calc(1489px / 2);
-    max-height: 500px;
+    max-width: 720px;
+    max-height: 650px;
 }
 
-/* Responsive layout for mobile browsers
-   Orders the div(s) as a stack
+/*
+    Responsive layout for mobile browsers
 */
 
-@media screen and (max-device-width: 667px) {
-    .map-weather {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
+/*@media only screen and (min-width: 750px) {}*/
 
-    #map {
-        order: 2;
-        max-width: inherit;
-        max-height: inherit;
-        margin-top: 5px;
-    }
+/*@media only screen and (min-width: 1280px) {}*/
 
-    #weather {
-        order: 1;
-        width: inherit;
-        height: inherit;
-    }
-
-    #bokeh-graph {
-        order: 3;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        flex-basis: calc(100% / 2);
-        max-height: 736px;
-    }
-
-}
-
-@media screen and (max-device-width: 420px) {
-
-    .map-weather {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    #map {
-        order: 2;
-        width: auto;
-        height: 580px;
-        margin-top: 5px;
-    }
-
-    #weather {
-        order: 1;
-        width: inherit;
-        height: inherit;
-    }
-
-    #bokeh-graph {
-        order: 3;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        max-height: 736px;
-        flex-basis: calc(50% - (2 * 0.5%));
-        flex: 1;
-    }
-
-    .bk-root:nth-child(1) {
-        order: 1;
-        max-width: fit-content;
-    }
-
-    .bk-root:nth-child(2) {
-        order: 2;
-    }
-
-    .bk-root:nth-child(3) {
-        order: 3;
-    }
-
-    .bk-root:nth-child(4) {
-        order: 4;
-    }
-
-    .bk-root:nth-child(5) {
-        order: 5;
-    }
-
-}
+/*@media only screen and (max-width: 990px) and (min-width: 750px) {}*/

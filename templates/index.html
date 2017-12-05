@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CCBayNav</title>
-
+    <title>Corpus Christi Bay Navigation</title>
     <!-- Imported CSS files -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon/favicon.ico') }}">
     <link rel="stylesheet" type="text/css"
@@ -17,9 +16,24 @@
 
 </head>
 <body>
-<header>
-    <h1>Corpus Christi Bay Navigation Tools Demo</h1>
-</header>
+<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="/">CCBayNav</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                    class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="http://cbiweb.tamucc.edu">CBI</a>
+                </li>
+                <li><a href="http://www.tamucc.edu">Tamucc</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="main-content">
     <div class="map-weather">
         <div id="map"></div>
