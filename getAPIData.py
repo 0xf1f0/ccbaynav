@@ -53,7 +53,7 @@ def noaa_request_maker(loc_id, variable, file_name, data):
     if 'error' in temp_data:
         print loc_id, variable, "error"
 
-    # read in all the different wind values
+        # read in all the different wind values
     elif variable is 'wind':
         data['wind_speed'][file_name] = {}
         data['wind_direction'][file_name] = {}
@@ -73,7 +73,9 @@ def noaa_request_maker(loc_id, variable, file_name, data):
 
 # function to query NOAA in a loop for all the wanted stations and variables
 def get_noaa_data():
-    locations = {"lexington": "8775296", "port_aransas": "8775237", "aransas_pass": "8775241",
+    locations = {"lexington": "8775296",
+                 "port_aransas": "8775237",
+                 "aransas_pass": "8775241",
                  "bob_hall_pier": "8775870"}
     var_list = ['wind', 'water_level', 'air_temperature', 'water_temperature']
     end_var_list = ['wind_gust', 'wind_direction', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
@@ -116,4 +118,4 @@ def api_data_request(api_url, json_file):
 
 
 # marine_traffic_request()
-# get_noaa_data()
+get_noaa_data()

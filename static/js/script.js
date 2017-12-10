@@ -85,15 +85,16 @@ function displayStations() {
                 stationInfoWindow.open(map, marker);
                 // console.log(station_weather_forecast, station_weather_current);
 
+                //Clear the current weather display
                 if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() &&
                     $('#current-condition-icon').empty()) {
                     getWeatherCurrent(station_weather_current, station_markers[i][0]);
                 }
 
+                //Clear the five-day weather forecast display
                 if ($('.forecast-item-info').empty() && $('.forecast-item-icon').empty()) {
                     getWeatherForecast(station_weather_forecast);
                 }
-
             }
         })(marker, i, station_weather_forecast, station_weather_current, station_markers));
     }
@@ -243,6 +244,7 @@ function getWeatherCurrent(url, station) {
             var icon;
             console.log("Station: " + station);
             //Dynamically add an icon and set its attribute
+
             icon = document.createElement('img');
             icon.src = iconUrl;
             icon.alt = desc;
@@ -310,7 +312,7 @@ function getWeatherForecast(url) {
 
                 // Display the icon and content
                 forecast.getElementsByClassName("forecast-item-info")[i].innerHTML = content;
-                document.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
+                forecast.getElementsByClassName("forecast-item-icon")[i].appendChild(icon);
             }
         }
     });

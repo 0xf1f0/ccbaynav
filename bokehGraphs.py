@@ -37,9 +37,10 @@ def create_graph(variable):
         # prepare some data
         y = []
         x = []
-
         for z in sorted(var_data[loc], key=to_time):
             # print z, var_data[loc][z]
+            if var_data[loc][z] == "":
+                continue
             y.append(var_data[loc][z])
             x.append(to_time(z))
 
