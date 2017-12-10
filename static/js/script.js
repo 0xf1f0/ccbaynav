@@ -2,15 +2,14 @@
  * Initialize and display Google maps
  */
 
-//TODO: Remove Houston Central station markers
-//Data Stations markers as a 2-Dimensional Array
+//Data stations markers as a 2-Dimensional Array4
+//Add station coordinates to this list
+
 var station_markers = [
     ['Aransas Pass', 27.9033, -97.1478],
     ['Port Aransas', 27.836, -97.0682],
     ['USS Lexington', 27.82, -97.4],
-    ['Bob Hall Pier', 27.5816, -97.2202],
-    ['Houston Central', 29.64, -95.28],
-    ['Test point', 39.0693, -94.6716]
+    ['Bob Hall Pier', 27.5816, -97.2202]
 ];
 
 
@@ -83,7 +82,6 @@ function displayStations() {
             return function () {
                 stationInfoWindow.setContent(infoWindowContent[i]);
                 stationInfoWindow.open(map, marker);
-                // console.log(station_weather_forecast, station_weather_current);
 
                 //Clear the current weather display
                 if ($('#current-condition-temp').empty() && $('#current-condition-info').empty() &&
@@ -221,6 +219,7 @@ function displayTime() {
 
     }
 
+    //Update the clock every second
     setInterval(function () {
         updateClock(timeElement);
     }, 1000);
@@ -242,7 +241,7 @@ function getWeatherCurrent(url, station) {
             var desc = period[0].shortForecast;
             var last_update = json_obj.updated;
             var icon;
-            console.log("Station: " + station);
+
             //Dynamically add an icon and set its attribute
 
             icon = document.createElement('img');
@@ -283,17 +282,14 @@ function getWeatherForecast(url) {
             var iconUrl;
             var content;
 
-            // console.log("Calling: " + url, len);
             // Get the first ten (Five days) forecast
             for (var i = 0; i < len - 4; i++) {
                 // console.log(period[i].name);
                 if (period[i].name.toLowerCase().includes("night")) {
                     temp = period[i].temperature;
-                    // console.log("Low: " + temp)
                 }
                 else {
                     temp = period[i].temperature;
-                    // console.log("High: " + temp)
                 }
                 time = period[i].name;
                 desc = period[i].shortForecast;
@@ -316,11 +312,4 @@ function getWeatherForecast(url) {
             }
         }
     });
-}
-
-// Converts an epoch(unix time) to readable Day, Time AM/PM
-function epochToDay(epoch_time) {
-    // var format = 'dddd, MMMM Do YYYY, h:mm:ss A';
-    var format = "ddd, h:mm A";
-    return moment.unix(epoch_time).format(format);
 }

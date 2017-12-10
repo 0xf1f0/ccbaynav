@@ -29,7 +29,6 @@ from flask import json
 
 
 def search_key(api_name):
-    # TODO: Change '.\config.json' to './config.json' when in Linux environment
     key_path = os.path.basename('.\config.json')
 
     #   Check if the file exist

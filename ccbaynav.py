@@ -13,6 +13,7 @@ schedule.start()
 # Create cron scheduler for background data request to NOAA
 schedule.add_job(get_noaa_data, trigger='interval', minutes=6, id='noaa_job', replace_existing=True)
 
+
 # Cassandra
 # add a background scheduler for the cassandra data retrieval here
 
@@ -27,16 +28,7 @@ def index():
                            div3=div_list[3], div4=div_list[4])
 
 
-# TODO - remove function, included for testing
-# def my_listener(event):
-#    if event.exception:
-#        print('The job crashed :(')
-#    else:
-#        print('The job worked :)')
-
-
 # schedule.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
 if __name__ == '__main__':
     app.run(debug=False)
-

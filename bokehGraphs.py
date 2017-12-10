@@ -57,7 +57,7 @@ def create_graph(variable):
         p.line(x=x, y=y, legend=loc, line_width=2, line_color=color[loc])
 
     # Add a hover tool
-    hover = HoverTool(tooltips=[(properties[variable][1], "@x{%c}"), (properties[variable][2], "@y")],
+    hover = HoverTool(tooltips=[(properties[variable][1], "@x{%a %x %X}"), (properties[variable][2], "@y")],
                       formatters={"x": "datetime"})
     p.add_tools(hover)
 
@@ -85,6 +85,7 @@ def create_graph(variable):
 
 # function to generate the graphs for each variable
 def graph_generator():
+
     # TODO: Add a different way to visualize the wind direction in a graph or something later
     # var_list = ['wind_gust', 'wind_direction', 'wind_speed', 'water_level', 'air_temperature', 'water_temperature']
     # names of variables for which there exists a json file of data in the api/ directory

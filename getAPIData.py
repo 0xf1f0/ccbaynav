@@ -46,7 +46,8 @@ def marine_traffic_request():
 
 # function to capture data for a specified variable and station from noaa
 def noaa_request_maker(loc_id, variable, file_name, data):
-    noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=MLLW&units=english&time_zone=lst&application=ccbaynav&format=json'
+    noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=MLLW&' \
+                    'units=english&time_zone=lst&application=ccbaynav&format=json'
     request_url = noaa_base_url + '&station=' + loc_id + '&product=' + variable
     data_request = requests.get(request_url)
     temp_data = data_request.json()
@@ -95,8 +96,6 @@ def get_noaa_data():
         with open('static/api/prog_' + var + '.json', 'w') as f:
             json.dump(data[var], f, sort_keys=True)
 
-        # TODO - os.rename does not work on Windows delete one of these
-        # os.rename('static/api/prog_' + var + '.json', 'static/api/' + var + '.json')
         shutil.move('static/api/prog_' + var + '.json', 'static/api/' + var + '.json')
 
 
