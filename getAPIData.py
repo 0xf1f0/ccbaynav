@@ -44,16 +44,17 @@ def marine_traffic_request():
         print "Code: 404"
 
 
-# function to capture data for a specified station from noaa
+# function to capture data for a specified variable and station from noaa
 def noaa_request_maker(loc_id, variable, file_name, data):
     noaa_base_url = 'https://tidesandcurrents.noaa.gov/api/datagetter?range=24&datum=MLLW&units=english&time_zone=lst&application=ccbaynav&format=json'
     request_url = noaa_base_url + '&station=' + loc_id + '&product=' + variable
     data_request = requests.get(request_url)
     temp_data = data_request.json()
-    if 'error' in temp_data:
-        print loc_id, variable, "error"
+    # if NOAA data request returns and error, skip this station and variable
+    if 'error' in temp_data or data_request.status_code != 200:
+        print loc_id, variable, "error getting NOAA data"
 
-        # read in all the different wind values
+    # read in all the different wind values
     elif variable is 'wind':
         data['wind_speed'][file_name] = {}
         data['wind_direction'][file_name] = {}
@@ -63,6 +64,7 @@ def noaa_request_maker(loc_id, variable, file_name, data):
             data['wind_speed'][file_name][time] = temp_data['data'][x]['s']
             data['wind_direction'][file_name][time] = temp_data['data'][x]['d']
             data['wind_gust'][file_name][time] = temp_data['data'][x]['g']
+
     # read in all the other values (not wind)
     else:
         data[variable][file_name] = {}
@@ -88,7 +90,7 @@ def get_noaa_data():
         for var in var_list:
             noaa_request_maker(loc_id, var, loc, data)
 
-    # loop through data array and save noaa data with a separate file for each variable
+    # loop through data array and save NOAA data with a separate file for each variable
     for var in end_var_list:
         with open('static/api/prog_' + var + '.json', 'w') as f:
             json.dump(data[var], f, sort_keys=True)
@@ -118,4 +120,4 @@ def api_data_request(api_url, json_file):
 
 
 # marine_traffic_request()
-get_noaa_data()
+# get_noaa_data()
